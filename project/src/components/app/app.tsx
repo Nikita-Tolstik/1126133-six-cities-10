@@ -9,7 +9,7 @@ import AuthScreen from '../../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
 import { Reviews } from '../../types/reviews';
-import { offers } from '../../mocks/offers';
+
 
 type AppScreenProps = {
   favoriteOffers: Offers;
@@ -32,7 +32,6 @@ const App: React.FC<AppScreenProps> = (props) => {
           path={`${AppRoute.Property}/:id`}
           element={
             <PropertyScreen
-              offers={offers}
               nearPlacesOffers={nearPlacesOffers}
               reviews={reviews}
             />

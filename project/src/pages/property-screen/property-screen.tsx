@@ -4,6 +4,7 @@ import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { ImagePropertyCount, ButtonClass, PageCardClass } from '../../const';
 import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
+import { useAppSelector } from '../../hooks';
 import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropertyImage from '../../components/property-image/property-image';
@@ -15,31 +16,31 @@ import FormReview from '../../components/form-review/form-review';
 
 
 type PropertyScreenProps = {
-  offers: Offers;
   nearPlacesOffers: Offers;
   reviews: Reviews
 }
 
 
 const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
-  const { offers, nearPlacesOffers, reviews } = props;
+  const { nearPlacesOffers, reviews } = props;
+
+  const offers = useAppSelector((state) => state.offers);
 
   const { id } = useParams();
-
   const numId = Number(id);
 
-  const offer = offers.find((item) => item.id === numId);
+  const activeOffer = offers.find((offer) => offer.id === numId);
 
   const isNaN = !numId;
-  const isNotOffer = !offer;
+  const isNotOffer = !activeOffer;
 
   if (isNaN || isNotOffer) {
     return <NotFoundScreen />;
   }
 
-  const images = offer.images.slice(ImagePropertyCount.Start, ImagePropertyCount.End);
-  const countStars = getCountStars(offer.rating);
-  const offerType = capitalizeFirstLetter(offer.type);
+  const images = activeOffer.images.slice(ImagePropertyCount.Start, ImagePropertyCount.End);
+  const countStars = getCountStars(activeOffer.rating);
+  const offerType = capitalizeFirstLetter(activeOffer.type);
 
   return (
     <div className="page">
@@ -83,19 +84,19 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
 
               <div
                 className="property__mark"
-                hidden={!offer.isPremium}
+                hidden={!activeOffer.isPremium}
               >
                 <span>Premium</span>
               </div>
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {offer.title}
+                  {activeOffer.title}
                 </h1>
 
                 <BookmarkButton
                   buttonClass={ButtonClass.Property}
-                  isFavorite={offer.isFavorite}
+                  isFavorite={activeOffer.isFavorite}
                 />
               </div>
 
@@ -104,7 +105,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
                   <span style={{ width: countStars }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{offer.rating}</span>
+                <span className="property__rating-value rating__value">{activeOffer.rating}</span>
               </div>
 
               <ul className="property__features">
@@ -112,37 +113,37 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
                   {offerType}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {`${offer.bedrooms} Bedrooms`}
+                  {`${activeOffer.bedrooms} Bedrooms`}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  {`Max ${offer.maxAdults} adults`}
+                  {`Max ${activeOffer.maxAdults} adults`}
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{offer.price}</b>
+                <b className="property__price-value">&euro;{activeOffer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
 
-              <PropertyGoods goods={offer.goods} />
+              <PropertyGoods goods={activeOffer.goods} />
 
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74"
+                    <img className="property__avatar user__avatar" src={activeOffer.host.avatarUrl} width="74" height="74"
                       alt="Host avatar"
                     />
                   </div>
                   <span className="property__user-name">
-                    {offer.host.name}
+                    {activeOffer.host.name}
                   </span>
                   <span className="property__user-status">
-                    {offer.host.isPro ? 'Pro' : ''}
+                    {activeOffer.host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offer.description}
+                    {activeOffer.description}
                   </p>
                 </div>
               </div>

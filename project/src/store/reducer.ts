@@ -1,8 +1,13 @@
 
 import { createReducer } from '@reduxjs/toolkit';
 import { City } from '../const';
-import { InitialState } from '../types/state';
+import { Offers } from '../types/offers';
 import { changeCity, loadOffers } from './action';
+
+export type InitialState = {
+  activeCity: City;
+  offers: Offers;
+}
 
 const initialState: InitialState = {
   activeCity: City.Paris,

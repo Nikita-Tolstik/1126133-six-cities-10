@@ -1,3 +1,5 @@
+import { Icon } from 'leaflet';
+
 export enum ImagePropertyCount {
   Start = 0,
   End = 6,
@@ -50,8 +52,20 @@ export const ImageSize = {
   }
 } as const;
 
-export const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-  'August', 'September', 'October', 'November', 'December'] as const;
+export const month = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+] as const;
 
 export const inputRatingOption = [
   { rating: 5, title: 'perfect' },
@@ -62,17 +76,41 @@ export const inputRatingOption = [
 ] as const;
 
 export const UrlMarker = {
-  Default: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-  Current: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg'
+  Default: 'img/pin.svg',
+  Current: 'img/pin-active.svg'
 } as const;
 
 export const IconParameter = {
   Size: {
-    x: 40,
-    y: 40
+    x: 27,
+    y: 39
   },
   Anchor: {
-    x: 20,
-    y: 40
+    x: 13.5,
+    y: 39
   }
 } as const;
+
+export enum City {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf'
+}
+
+export const city = [
+  City.Paris,
+  City.Cologne,
+  City.Brussels,
+  City.Amsterdam,
+  City.Hamburg,
+  City.Dusseldorf
+] as const;
+
+export const defaultCustomIcon = new Icon({
+  iconUrl: UrlMarker.Default,
+  iconSize: [IconParameter.Size.x, IconParameter.Size.y],
+  iconAnchor: [IconParameter.Anchor.x, IconParameter.Anchor.y],
+});

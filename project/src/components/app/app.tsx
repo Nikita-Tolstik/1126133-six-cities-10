@@ -8,23 +8,23 @@ import AuthScreen from '../../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
 import { Reviews } from '../../types/reviews';
+import { offers } from '../../mocks/offers';
 
 type AppScreenProps = {
-  offers: Offers;
   favoriteOffers: Offers;
   nearPlacesOffers: Offers;
   reviews: Reviews;
 }
 
 function App(props: AppScreenProps): JSX.Element {
-  const { offers, favoriteOffers, nearPlacesOffers, reviews } = props;
+  const { favoriteOffers, nearPlacesOffers, reviews } = props;
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen offers={offers} />}
+          element={<MainScreen />}
         />
         <Route
           path={`${AppRoute.Property}/:id`}

@@ -1,5 +1,5 @@
+import React, { useRef } from 'react';
 import { Marker } from 'leaflet';
-import { useRef } from 'react';
 import { City } from '../../const';
 import { Offers } from '../../types/offers';
 import 'leaflet/dist/leaflet.css';
@@ -8,12 +8,14 @@ import { getActiveCityLocation } from '../../utils/utils';
 import useChangeLocation from '../../hooks/useChangeLocation';
 import useMarker from '../../hooks/useMarker';
 
+
 type MapProps = {
   activeCity: City;
   activeCityOffers: Offers;
 };
 
-function Map(props: MapProps): JSX.Element {
+
+const Map: React.FC<MapProps> = (props) => {
   const { activeCityOffers, activeCity } = props;
 
   const activeCityLocation = getActiveCityLocation(activeCity, activeCityOffers);
@@ -40,6 +42,6 @@ function Map(props: MapProps): JSX.Element {
     >
     </section>
   );
-}
+};
 
 export default Map;

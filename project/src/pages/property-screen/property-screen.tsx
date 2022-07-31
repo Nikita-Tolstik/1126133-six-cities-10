@@ -1,3 +1,4 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
@@ -19,10 +20,16 @@ type PropertyScreenProps = {
   reviews: Reviews
 }
 
-function PropertyScreen({ offers, nearPlacesOffers, reviews }: PropertyScreenProps): JSX.Element {
+
+const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
+  const { offers, nearPlacesOffers, reviews } = props;
+
   const { id } = useParams();
+
   const numId = Number(id);
+
   const offer = offers.find((item) => item.id === numId);
+
   const isNaN = !numId;
   const isNotOffer = !offer;
 
@@ -179,6 +186,6 @@ function PropertyScreen({ offers, nearPlacesOffers, reviews }: PropertyScreenPro
       </main>
     </div>
   );
-}
+};
 
 export default PropertyScreen;

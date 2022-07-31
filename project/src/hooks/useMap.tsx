@@ -2,10 +2,10 @@ import { Map, TileLayer } from 'leaflet';
 import { MutableRefObject, useEffect, useState, useRef } from 'react';
 import { Location } from '../types/offers';
 
-function useMap(
+const useMap = (
   mapRef: MutableRefObject<HTMLElement | null>,
   locationCity: Location
-): Map | null {
+): Map | null => {
 
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -35,6 +35,6 @@ function useMap(
   }, [mapRef, locationCity]);
 
   return map;
-}
+};
 
 export default useMap;

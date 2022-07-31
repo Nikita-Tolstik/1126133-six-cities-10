@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offers } from '../../types/offers';
@@ -16,7 +17,8 @@ type AppScreenProps = {
   reviews: Reviews;
 }
 
-function App(props: AppScreenProps): JSX.Element {
+
+const App: React.FC<AppScreenProps> = (props) => {
   const { favoriteOffers, nearPlacesOffers, reviews } = props;
 
   return (
@@ -57,6 +59,6 @@ function App(props: AppScreenProps): JSX.Element {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

@@ -1,20 +1,20 @@
-import { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Offers } from '../../types/offers';
 import { PageCardClass } from '../../const';
 import OfferCard from '../offer-card/offer-card';
+
 
 type OffersListProps = {
   offers: Offers;
   cardClass: PageCardClass;
 };
 
-function OffersList({ offers, cardClass }: OffersListProps): JSX.Element {
+
+const OffersList: React.FC<OffersListProps> = ({ offers, cardClass }) => {
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
-  // Заглушка для переменной activeCard
-  if (activeCard === undefined) {
-    return <div />;
-  }
 
   return (
     <Fragment>
@@ -29,6 +29,6 @@ function OffersList({ offers, cardClass }: OffersListProps): JSX.Element {
       )}
     </Fragment>
   );
-}
+};
 
 export default OffersList;

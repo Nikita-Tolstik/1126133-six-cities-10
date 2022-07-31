@@ -1,12 +1,14 @@
+import React from 'react';
 import { PageCardClass } from '../../const';
 import Logo from '../../components/logo/logo';
-import CitiesListTabs from '../../components/cities-list-tabs/cities-list-tabs';
+import CitiesTabs from '../../components/cities-tabs/cities-tabs';
 import { useAppSelector } from '../../hooks';
 import { getActiveCityOffers } from '../../utils/utils';
 import MainOffers from '../../components/main-offers/main-offers';
 import MainOffersEmpty from '../../components/main-offers-empty/main-offers-empty';
 
-function MainScreen(): JSX.Element {
+
+const MainScreen: React.FC = () => {
   const { offers, activeCity } = useAppSelector((state) => state);
 
   const activeCityOffers = getActiveCityOffers(activeCity, offers);
@@ -52,14 +54,13 @@ function MainScreen(): JSX.Element {
         <div className="tabs">
           <section className="locations container">
 
-            <CitiesListTabs activeCity={activeCity} />
+            <CitiesTabs activeCity={activeCity} />
 
           </section>
         </div>
 
         <div className="cities">
 
-          {/* Такая запись условного рендеринга подходит в этой ситуации ? Или лучше делать другой вариант из-за плохой читаемости кода ? */}
           {isEmptyOffers
             ? <MainOffersEmpty activeCity={activeCity} />
             : <MainOffers offersCount={offersCount} activeCityOffers={activeCityOffers} cardClass={PageCardClass.Main} activeCity={activeCity} />}
@@ -68,6 +69,7 @@ function MainScreen(): JSX.Element {
       </main>
     </div>
   );
-}
+};
+
 
 export default MainScreen;

@@ -1,8 +1,10 @@
+import React from 'react';
 import { Offer } from '../../types/offers';
 import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
 import { PageCardClass, ButtonClass, ImageSize, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import BookmarkButton from '../bookmark-button/bookmark-button';
+
 
 type OfferCardProps = {
   offer: Offer;
@@ -11,11 +13,15 @@ type OfferCardProps = {
   onInactive?: () => void;
 };
 
-function OfferCard(props: OfferCardProps): JSX.Element {
+
+const OfferCard: React.FC<OfferCardProps> = (props) => {
   const { offer, cardClass, onActive, onInactive } = props;
+
   const countStars = getCountStars(offer.rating);
   const offerType = capitalizeFirstLetter(offer.type);
+
   const isFavoriteStyle = cardClass === PageCardClass.Favorite;
+
   const imageSize = isFavoriteStyle ? ImageSize.Small : ImageSize.Big;
 
   return (
@@ -81,6 +87,6 @@ function OfferCard(props: OfferCardProps): JSX.Element {
       </div>
     </article>
   );
-}
+};
 
 export default OfferCard;

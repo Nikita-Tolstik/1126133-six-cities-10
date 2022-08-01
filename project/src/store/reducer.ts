@@ -7,14 +7,14 @@ import { changeCity, loadOffers, setAuthorizationStatus, setDataLoadedStatus } f
 export type InitialState = {
   activeCity: City;
   offers: Offers;
-  AuthorizationStatus: AuthorizationStatus;
+  authorizationStatus: AuthorizationStatus;
   isDataLoaded: boolean;
 }
 
 const initialState: InitialState = {
   activeCity: City.Paris,
   offers: [],
-  AuthorizationStatus: AuthorizationStatus.Unknown,
+  authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: true,
 };
 
@@ -30,6 +30,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isDataLoaded = action.payload;
     })
     .addCase(setAuthorizationStatus, (state, action) => {
-      state.AuthorizationStatus = action.payload;
+      state.authorizationStatus = action.payload;
     });
 });

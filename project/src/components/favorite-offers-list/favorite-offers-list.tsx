@@ -1,8 +1,8 @@
+import React, { Fragment } from 'react';
 import { Offers } from '../../types/offers';
 import { getCitiesOffers } from '../../utils/utils';
 import { PageCardClass } from '../../const';
 import FavoriteCity from '../../components/favorite-city/favorite-city';
-import { Fragment } from 'react';
 import OffersList from '../../components/offers-list/offers-list';
 
 type FavoriteOffersListProps = {
@@ -10,7 +10,8 @@ type FavoriteOffersListProps = {
   cardClass: PageCardClass;
 }
 
-function FavoriteOffersList({ offers, cardClass }: FavoriteOffersListProps): JSX.Element {
+
+const FavoriteOffersList: React.FC<FavoriteOffersListProps> = ({ offers, cardClass }) => {
   const citiesOffers = getCitiesOffers(offers);
 
   return (
@@ -36,6 +37,6 @@ function FavoriteOffersList({ offers, cardClass }: FavoriteOffersListProps): JSX
       )}
     </Fragment >
   );
-}
+};
 
 export default FavoriteOffersList;

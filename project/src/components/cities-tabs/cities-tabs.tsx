@@ -1,14 +1,15 @@
-import { MouseEvent } from 'react';
+import React, { MouseEvent } from 'react';
 import { City, city } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/action';
 
 
-type CitiesListTabsProps = {
+type CitiesTabsProps = {
   activeCity: City;
 }
 
-function CitiesListTabs({ activeCity }: CitiesListTabsProps): JSX.Element {
+
+const CitiesTabs: React.FC<CitiesTabsProps> = ({ activeCity }) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -32,6 +33,7 @@ function CitiesListTabs({ activeCity }: CitiesListTabsProps): JSX.Element {
       )}
     </ul>
   );
-}
+};
 
-export default CitiesListTabs;
+
+export default CitiesTabs;

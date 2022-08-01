@@ -1,14 +1,17 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offers } from '../../types/offers';
+import { Reviews } from '../../types/reviews';
+import { useAppSelector } from '../../hooks';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
-import { Reviews } from '../../types/reviews';
-import { offers } from '../../mocks/offers';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+
 
 type AppScreenProps = {
   favoriteOffers: Offers;
@@ -16,8 +19,15 @@ type AppScreenProps = {
   reviews: Reviews;
 }
 
-function App(props: AppScreenProps): JSX.Element {
+
+const App: React.FC<AppScreenProps> = (props) => {
   const { favoriteOffers, nearPlacesOffers, reviews } = props;
+
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+
+  if (isDataLoaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <BrowserRouter>
@@ -30,7 +40,6 @@ function App(props: AppScreenProps): JSX.Element {
           path={`${AppRoute.Property}/:id`}
           element={
             <PropertyScreen
-              offers={offers}
               nearPlacesOffers={nearPlacesOffers}
               reviews={reviews}
             />
@@ -57,6 +66,6 @@ function App(props: AppScreenProps): JSX.Element {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

@@ -13,6 +13,10 @@ export enum AppRoute {
   NotFound = '*',
 }
 
+export enum APIRoute {
+  Offers = '/hotels',
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',

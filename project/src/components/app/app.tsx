@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { useAppSelector } from '../../hooks';
@@ -48,9 +48,7 @@ const App: React.FC<AppScreenProps> = (props) => {
         <Route
           path={AppRoute.Favorite}
           element={
-            <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
-            >
+            <PrivateRoute>
               <FavoritesScreen offers={favoriteOffers} />
             </PrivateRoute>
           }

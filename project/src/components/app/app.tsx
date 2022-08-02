@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { Routes, Route } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { useAppSelector } from '../../hooks';
@@ -11,6 +11,8 @@ import AuthScreen from '../../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 type AppScreenProps = {
@@ -30,7 +32,7 @@ const App: React.FC<AppScreenProps> = (props) => {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -48,9 +50,7 @@ const App: React.FC<AppScreenProps> = (props) => {
         <Route
           path={AppRoute.Favorite}
           element={
-            <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
-            >
+            <PrivateRoute>
               <FavoritesScreen offers={favoriteOffers} />
             </PrivateRoute>
           }
@@ -64,7 +64,7 @@ const App: React.FC<AppScreenProps> = (props) => {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
 

@@ -13,6 +13,10 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
 
   const { authorizationStatus } = useAppSelector((state) => state);
 
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return null;
+  }
+
   return (
     authorizationStatus === AuthorizationStatus.Auth
       ? children

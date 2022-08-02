@@ -6,6 +6,8 @@ import { favoriteOffers, nearPlacesOffers } from './mocks/offers';
 import { reviews } from './mocks/reviews';
 import { store } from './store';
 import { checkAuthAction, fetchOfferAction } from './store/api-actions';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(checkAuthAction());
 store.dispatch(fetchOfferAction());
@@ -17,6 +19,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App
         favoriteOffers={favoriteOffers}
         nearPlacesOffers={nearPlacesOffers}

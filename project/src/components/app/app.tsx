@@ -6,7 +6,7 @@ import { Reviews } from '../../types/reviews';
 import { useAppSelector } from '../../hooks';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
-import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
+import FavoriteScreen from '../../pages/favorite-screen/favorite-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
@@ -51,7 +51,7 @@ const App: React.FC<AppScreenProps> = (props) => {
           path={AppRoute.Favorite}
           element={
             <PrivateRoute>
-              <FavoritesScreen offers={favoriteOffers} />
+              <FavoriteScreen offers={favoriteOffers} />
             </PrivateRoute>
           }
         />

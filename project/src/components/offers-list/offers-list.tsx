@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { Offers } from '../../types/offers';
 import { PageCardClass } from '../../const';
 import OfferCard from '../offer-card/offer-card';
@@ -7,28 +7,22 @@ import OfferCard from '../offer-card/offer-card';
 type OffersListProps = {
   offers: Offers;
   cardClass: PageCardClass;
+  onActiveCard?: (value: number | null) => void;
 };
 
 
-const OffersList: React.FC<OffersListProps> = ({ offers, cardClass }) => {
+const OffersList: React.FC<OffersListProps> = ({ offers, cardClass, onActiveCard }) => (
+  <Fragment>
+    {offers.map((offer) => (
+      <OfferCard
+        key={offer.id}
+        offer={offer}
+        cardClass={cardClass}
+        onActiveCard={onActiveCard}
+      />)
+    )}
+  </Fragment>
+);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeCard, setActiveCard] = useState<number | null>(null);
 
-
-  return (
-    <Fragment>
-      {offers.map((offer) => (
-        <OfferCard
-          key={offer.id}
-          offer={offer}
-          cardClass={cardClass}
-          onActive={() => setActiveCard(offer.id)}
-          onInactive={() => setActiveCard(null)}
-        />)
-      )}
-    </Fragment>
-  );
-};
-
-export default OffersList;
+export default React.memo(OffersList);

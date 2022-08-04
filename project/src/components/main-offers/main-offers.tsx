@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import { Offers } from '../../types/offers';
@@ -15,6 +15,12 @@ type MainOffersProps = {
 
 const MainOffers: React.FC<MainOffersProps> = (props) => {
   const { offersCount, activeCityOffers, cardClass, activeCity } = props;
+
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+
+  const onActiveCard = useCallback((value: number | null) => {
+    setActiveCardId(value);
+  }, []);
 
   return (
     <div className="cities__places-container container">
@@ -45,6 +51,7 @@ const MainOffers: React.FC<MainOffersProps> = (props) => {
           <OffersList
             offers={activeCityOffers}
             cardClass={cardClass}
+            onActiveCard={onActiveCard}
           />
         </div>
       </section>
@@ -53,6 +60,7 @@ const MainOffers: React.FC<MainOffersProps> = (props) => {
         <Map
           activeCity={activeCity}
           activeCityOffers={activeCityOffers}
+          activeCardId={activeCardId}
         />
       </div>
     </div>

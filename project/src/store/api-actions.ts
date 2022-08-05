@@ -6,19 +6,18 @@ import { AuthData } from '../types/auth-data';
 import { Offers } from '../types/offers';
 import { AppDispatch, State } from '../types/state';
 import { UserData } from '../types/user-data';
-import { loadOffers, redirectToRoute, setDataLoadedStatus } from './action';
+import { redirectToRoute } from './action';
 
 
-export const fetchOfferAction = createAsyncThunk<void, undefined, {
+export const fetchOfferAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/fetchOffers',
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<Offers>(APIRoute.Offers);
-    dispatch(loadOffers(data));
-    dispatch(setDataLoadedStatus(false));
+    return data;
   },
 );
 

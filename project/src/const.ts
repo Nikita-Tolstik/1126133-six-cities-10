@@ -126,3 +126,8 @@ export const activeCustomIcon = new Icon({
   iconSize: [IconParameter.Size.x, IconParameter.Size.y],
   iconAnchor: [IconParameter.Anchor.x, IconParameter.Anchor.y],
 });
+
+export enum NameSpace {
+  Data = 'DATA',
+  User = 'USER'
+}

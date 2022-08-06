@@ -128,6 +128,7 @@ export const activeCustomIcon = new Icon({
 });
 
 export enum NameSpace {
+  App = 'APP',
   Data = 'DATA',
   User = 'USER'
 }

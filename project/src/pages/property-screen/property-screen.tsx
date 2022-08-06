@@ -13,6 +13,7 @@ import PropertyGoods from '../../components/property-goods/property-goods';
 import OffersList from '../../components/offers-list/offers-list';
 import UserReview from '../../components/user-review/user-review';
 import FormReview from '../../components/form-review/form-review';
+import { getOffers } from '../../store/app-data/selectors';
 
 
 type PropertyScreenProps = {
@@ -24,7 +25,7 @@ type PropertyScreenProps = {
 const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
   const { nearPlacesOffers, reviews } = props;
 
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
 
   const { id } = useParams();
   const numId = Number(id);

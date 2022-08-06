@@ -1,13 +1,15 @@
 import React from 'react';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import HeaderGuest from '../header-guest/header-guest';
 import HeaderUser from '../header-user/header-user';
 import Logo from '../logo/logo';
 
 
 const Header: React.FC = () => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <header className="header">

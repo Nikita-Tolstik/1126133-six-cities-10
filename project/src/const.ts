@@ -83,7 +83,7 @@ export const inputRatingOption = [
 
 export const UrlMarker = {
   Default: 'img/pin.svg',
-  Current: 'img/pin-active.svg'
+  Active: 'img/pin-active.svg'
 } as const;
 
 export const IconParameter = {
@@ -120,3 +120,15 @@ export const defaultCustomIcon = new Icon({
   iconSize: [IconParameter.Size.x, IconParameter.Size.y],
   iconAnchor: [IconParameter.Anchor.x, IconParameter.Anchor.y],
 });
+
+export const activeCustomIcon = new Icon({
+  iconUrl: UrlMarker.Active,
+  iconSize: [IconParameter.Size.x, IconParameter.Size.y],
+  iconAnchor: [IconParameter.Anchor.x, IconParameter.Anchor.y],
+});
+
+export enum NameSpace {
+  App = 'APP',
+  Data = 'DATA',
+  User = 'USER'
+}

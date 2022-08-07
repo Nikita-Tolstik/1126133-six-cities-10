@@ -6,13 +6,14 @@ import { Reviews } from '../../types/reviews';
 import { useAppSelector } from '../../hooks';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
-import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
+import FavoriteScreen from '../../pages/favorite-screen/favorite-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getDataLoadedStatus } from '../../store/app-data/selectors';
 
 
 type AppScreenProps = {
@@ -25,7 +26,7 @@ type AppScreenProps = {
 const App: React.FC<AppScreenProps> = (props) => {
   const { favoriteOffers, nearPlacesOffers, reviews } = props;
 
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  const isDataLoaded = useAppSelector(getDataLoadedStatus);
 
   if (isDataLoaded) {
     return <LoadingScreen />;
@@ -51,7 +52,7 @@ const App: React.FC<AppScreenProps> = (props) => {
           path={AppRoute.Favorite}
           element={
             <PrivateRoute>
-              <FavoritesScreen offers={favoriteOffers} />
+              <FavoriteScreen offers={favoriteOffers} />
             </PrivateRoute>
           }
         />

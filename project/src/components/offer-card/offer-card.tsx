@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { Offer } from '../../types/offers';
-import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
-import { PageCardClass, ButtonClass, ImageSize, AppRoute } from '../../const';
+import { capitalizeFirstLetter } from '../../utils/utils';
+import { PageCardClass, ComponentClass, ImageSize, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button';
+import OfferRating from '../offer-rating/offer-rating';
 
 
 type OfferCardProps = {
@@ -18,7 +19,6 @@ const TIMER = 500;
 const OfferCard: React.FC<OfferCardProps> = (props) => {
   const { offer, cardClass, onActiveCard } = props;
 
-  const countStars = getCountStars(offer.rating);
   const offerType = capitalizeFirstLetter(offer.type);
 
   const isFavoriteStyle = cardClass === PageCardClass.Favorite;
@@ -80,20 +80,17 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
           </div>
 
           <FavoriteButton
-            buttonClass={ButtonClass.OfferCard}
+            buttonClass={ComponentClass.OfferCard}
             isFavorite={offer.isFavorite}
           />
 
         </div>
 
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
+        <OfferRating
+          offer={offer}
+          componentClass={ComponentClass.OfferCard}
+        />
 
-            <span style={{ width: countStars }} />
-
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
         <h2 className="place-card__name">
 
           <Link

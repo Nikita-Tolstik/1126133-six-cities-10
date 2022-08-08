@@ -26,7 +26,7 @@ export enum PageCardClass {
   Favorite = 'favorites',
 }
 
-export enum ButtonClass {
+export enum ComponentClass {
   Property = 'property',
   OfferCard = 'place-card',
 }

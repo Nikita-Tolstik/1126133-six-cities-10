@@ -2,8 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
-import { ButtonClass, PageCardClass, MapClass } from '../../const';
-import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
+import { ComponentClass, PageCardClass, MapClass } from '../../const';
+import { capitalizeFirstLetter } from '../../utils/utils';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
@@ -16,6 +16,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import ImagesList from '../../components/images-list/images-list';
 import Header from '../../components/header/header';
+import OfferRating from '../../components/offer-rating/offer-rating';
 
 
 type PropertyScreenProps = {
@@ -42,7 +43,6 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
     return <NotFoundScreen />;
   }
 
-  const starsCount = getCountStars(activeOffer.rating);
   const reviewsCount = reviews.length;
   const offerType = capitalizeFirstLetter(activeOffer.type);
   const offersList = [activeOffer, ...nearPlacesOffers];
@@ -75,18 +75,15 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
                 </h1>
 
                 <FavoriteButton
-                  buttonClass={ButtonClass.Property}
+                  buttonClass={ComponentClass.Property}
                   isFavorite={activeOffer.isFavorite}
                 />
               </div>
 
-              <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{ width: starsCount }}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">{activeOffer.rating}</span>
-              </div>
+              <OfferRating
+                offer={activeOffer}
+                componentClass={ComponentClass.Property}
+              />
 
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">

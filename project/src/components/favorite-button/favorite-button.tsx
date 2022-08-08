@@ -1,14 +1,14 @@
 import React from 'react';
-import { ButtonClass, ButtonSize } from '../../const';
+import { ComponentClass, ButtonSize } from '../../const';
 
 type FavoriteButtonProps = {
-  buttonClass: ButtonClass,
+  buttonClass: ComponentClass,
   isFavorite: boolean;
 }
 
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ buttonClass, isFavorite }) => {
-  const buttonSize = buttonClass === ButtonClass.OfferCard ? ButtonSize.Small : ButtonSize.Big;
+  const buttonSize = buttonClass === ComponentClass.OfferCard ? ButtonSize.Small : ButtonSize.Big;
 
   return (
     <button

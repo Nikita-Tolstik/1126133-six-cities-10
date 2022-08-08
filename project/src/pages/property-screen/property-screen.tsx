@@ -5,15 +5,15 @@ import { Reviews } from '../../types/reviews';
 import { ImagePropertyCount, ButtonClass, PageCardClass } from '../../const';
 import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
 import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../store/app-data/selectors';
 import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropertyImage from '../../components/property-image/property-image';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
 import OffersList from '../../components/offers-list/offers-list';
-import UserReview from '../../components/user-review/user-review';
 import FormReview from '../../components/form-review/form-review';
-import { getOffers } from '../../store/app-data/selectors';
+import ReviewsList from '../../components/reviews-list/reviews-list';
 
 
 type PropertyScreenProps = {
@@ -40,7 +40,8 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
   }
 
   const images = activeOffer.images.slice(ImagePropertyCount.Start, ImagePropertyCount.End);
-  const countStars = getCountStars(activeOffer.rating);
+  const starsCount = getCountStars(activeOffer.rating);
+  const reviewsCount = reviews.length;
   const offerType = capitalizeFirstLetter(activeOffer.type);
 
   return (
@@ -103,7 +104,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
 
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: countStars }}></span>
+                  <span style={{ width: starsCount }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{activeOffer.rating}</span>
@@ -151,17 +152,15 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
 
 
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
+                <h2 className="reviews__title">Reviews &middot;&nbsp;
+                  <span className="reviews__amount">{reviewsCount}</span>
+                </h2>
 
-                  <UserReview
-                    reviews={reviews}
-                  />
-
-                </ul>
+                <ReviewsList
+                  reviews={reviews}
+                />
 
                 <FormReview />
-
               </section>
 
 

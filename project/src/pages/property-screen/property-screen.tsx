@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { ComponentClass, PageCardClass, MapClass } from '../../const';
-import { capitalizeFirstLetter } from '../../utils/utils';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
@@ -18,6 +17,7 @@ import ImagesList from '../../components/images-list/images-list';
 import Header from '../../components/header/header';
 import OfferRating from '../../components/offer-rating/offer-rating';
 import PremiumMark from '../../components/premium-mark/premium-mark';
+import PropertyFeatures from '../../components/property-features/property-features';
 
 
 type PropertyScreenProps = {
@@ -45,7 +45,6 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
   }
 
   const reviewsCount = reviews.length;
-  const offerType = capitalizeFirstLetter(activeOffer.type);
   const offersList = [activeOffer, ...nearPlacesOffers];
 
   return (
@@ -84,17 +83,8 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
                 componentClass={ComponentClass.Property}
               />
 
-              <ul className="property__features">
-                <li className="property__feature property__feature--entire">
-                  {offerType}
-                </li>
-                <li className="property__feature property__feature--bedrooms">
-                  {`${activeOffer.bedrooms} Bedrooms`}
-                </li>
-                <li className="property__feature property__feature--adults">
-                  {`Max ${activeOffer.maxAdults} adults`}
-                </li>
-              </ul>
+              <PropertyFeatures offer={activeOffer} />
+
               <div className="property__price">
                 <b className="property__price-value">&euro;{activeOffer.price}</b>
                 <span className="property__price-text">&nbsp;night</span>

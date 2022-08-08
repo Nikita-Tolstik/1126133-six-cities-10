@@ -18,6 +18,7 @@ import Header from '../../components/header/header';
 import OfferRating from '../../components/offer-rating/offer-rating';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import PropertyFeatures from '../../components/property-features/property-features';
+import PropertyHost from '../../components/property-host/property-host';
 
 
 type PropertyScreenProps = {
@@ -92,28 +93,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
 
               <PropertyGoods goods={activeOffer.goods} />
 
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={activeOffer.host.avatarUrl} width="74" height="74"
-                      alt="Host avatar"
-                    />
-                  </div>
-                  <span className="property__user-name">
-                    {activeOffer.host.name}
-                  </span>
-                  <span className="property__user-status">
-                    {activeOffer.host.isPro ? 'Pro' : ''}
-                  </span>
-                </div>
-                <div className="property__description">
-                  <p className="property__text">
-                    {activeOffer.description}
-                  </p>
-                </div>
-              </div>
-
+              <PropertyHost offer={activeOffer} />
 
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot;&nbsp;

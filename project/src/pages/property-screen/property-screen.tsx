@@ -10,8 +10,6 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
 import OffersList from '../../components/offers-list/offers-list';
-import FormReview from '../../components/form-review/form-review';
-import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import ImagesList from '../../components/images-list/images-list';
 import Header from '../../components/header/header';
@@ -19,6 +17,7 @@ import OfferRating from '../../components/offer-rating/offer-rating';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import PropertyFeatures from '../../components/property-features/property-features';
 import PropertyHost from '../../components/property-host/property-host';
+import PropertyReviews from '../../components/property-reviews/property-reviews';
 
 
 type PropertyScreenProps = {
@@ -45,7 +44,6 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
     return <NotFoundScreen />;
   }
 
-  const reviewsCount = reviews.length;
   const offersList = [activeOffer, ...nearPlacesOffers];
 
   return (
@@ -56,9 +54,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
-
             <ImagesList imagesList={activeOffer.images} />
-
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
@@ -95,18 +91,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
 
               <PropertyHost offer={activeOffer} />
 
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot;&nbsp;
-                  <span className="reviews__amount">{reviewsCount}</span>
-                </h2>
-
-                <ReviewsList
-                  reviews={reviews}
-                />
-
-                <FormReview />
-              </section>
-
+              <PropertyReviews reviews={reviews} />
 
             </div>
           </div>
@@ -119,7 +104,6 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
           />
         </section>
 
-
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
@@ -129,7 +113,6 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
                 offers={nearPlacesOffers}
                 cardClass={PageCardClass.Property}
               />
-
             </div>
           </section>
         </div>

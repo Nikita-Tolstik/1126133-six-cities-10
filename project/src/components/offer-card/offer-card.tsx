@@ -3,7 +3,7 @@ import { Offer } from '../../types/offers';
 import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
 import { PageCardClass, ButtonClass, ImageSize, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-import BookmarkButton from '../bookmark-button/bookmark-button';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 
 type OfferCardProps = {
@@ -79,7 +79,7 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
-          <BookmarkButton
+          <FavoriteButton
             buttonClass={ButtonClass.OfferCard}
             isFavorite={offer.isFavorite}
           />

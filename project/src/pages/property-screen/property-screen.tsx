@@ -8,7 +8,7 @@ import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import BookmarkButton from '../../components/bookmark-button/bookmark-button';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
 import OffersList from '../../components/offers-list/offers-list';
 import FormReview from '../../components/form-review/form-review';
@@ -74,7 +74,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
                   {activeOffer.title}
                 </h1>
 
-                <BookmarkButton
+                <FavoriteButton
                   buttonClass={ButtonClass.Property}
                   isFavorite={activeOffer.isFavorite}
                 />

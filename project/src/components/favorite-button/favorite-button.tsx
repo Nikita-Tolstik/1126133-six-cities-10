@@ -1,13 +1,13 @@
 import React from 'react';
 import { ButtonClass, ButtonSize } from '../../const';
 
-type BookmarkButtonProps = {
+type FavoriteButtonProps = {
   buttonClass: ButtonClass,
   isFavorite: boolean;
 }
 
 
-const BookmarkButton: React.FC<BookmarkButtonProps> = ({ buttonClass, isFavorite }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ buttonClass, isFavorite }) => {
   const buttonSize = buttonClass === ButtonClass.OfferCard ? ButtonSize.Small : ButtonSize.Big;
 
   return (
@@ -28,4 +28,4 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ buttonClass, isFavorite
 };
 
 
-export default BookmarkButton;
+export default FavoriteButton;

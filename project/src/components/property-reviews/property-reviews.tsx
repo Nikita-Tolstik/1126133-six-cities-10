@@ -1,4 +1,7 @@
 import React from 'react';
+import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Reviews } from '../../types/reviews';
 import FormReview from '../form-review/form-review';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -7,18 +10,23 @@ type PropertyReviewsProps = {
   reviews: Reviews
 }
 
-const PropertyReviews: React.FC<PropertyReviewsProps> = ({ reviews }) => (
-  <section className="property__reviews reviews">
-    <h2 className="reviews__title">Reviews &middot;&nbsp;
-      <span className="reviews__amount">{reviews.length}</span>
-    </h2>
+const PropertyReviews: React.FC<PropertyReviewsProps> = ({ reviews }) => {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isShowForm = authorizationStatus === AuthorizationStatus.Auth;
 
-    <ReviewsList
-      reviews={reviews}
-    />
+  return (
+    <section className="property__reviews reviews">
+      <h2 className="reviews__title">Reviews &middot;&nbsp;
+        <span className="reviews__amount">{reviews.length}</span>
+      </h2>
 
-    <FormReview />
-  </section>
-);
+      <ReviewsList
+        reviews={reviews}
+      />
+
+      {isShowForm && <FormReview />}
+    </section>
+  );
+};
 
 export default PropertyReviews;

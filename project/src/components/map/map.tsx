@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { Marker } from 'leaflet';
-import { City } from '../../const';
+import { City, MapClass } from '../../const';
 import { Offers } from '../../types/offers';
-import { getActiveCityLocation } from '../../utils/utils';
+import { getLocation } from '../../utils/utils';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import useChangeLocation from '../../hooks/use-change-location';
@@ -11,23 +11,24 @@ import useRemoveMarker from '../../hooks/use-remove-marker';
 
 
 type MapProps = {
-  activeCity: City;
-  activeCityOffers: Offers;
-  activeCardId: number | null;
+  activeCity: City,
+  activeCityOffers: Offers,
+  activeCardId: number | null,
+  mapClass: MapClass
 };
 
 
 const Map: React.FC<MapProps> = (props) => {
-  const { activeCityOffers, activeCity, activeCardId } = props;
+  const { activeCity, activeCityOffers, activeCardId, mapClass } = props;
 
-  const activeCityLocation = getActiveCityLocation(activeCity, activeCityOffers);
+  const activeLocation = getLocation(activeCity, activeCityOffers, mapClass);
 
   const mapRef = useRef(null);
   const prevActiveCityRef = useRef<City>(activeCity);
   const prevMarkersRef = useRef<Marker[]>([]);
   const prevActiveId = useRef<number | null>(activeCardId);
 
-  const map = useMap(mapRef, activeCityLocation);
+  const map = useMap(mapRef, activeLocation);
 
   useRemoveMarker(
     prevMarkersRef,
@@ -40,7 +41,7 @@ const Map: React.FC<MapProps> = (props) => {
     prevActiveCityRef,
     prevMarkersRef,
     activeCity,
-    activeCityLocation,
+    activeLocation,
     map
   );
 
@@ -52,7 +53,7 @@ const Map: React.FC<MapProps> = (props) => {
   );
 
   return (
-    <section className="cities__map map"
+    <section className={mapClass}
       ref={mapRef}
     >
     </section>

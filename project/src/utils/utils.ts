@@ -1,5 +1,5 @@
 import { Offers, Offer, Location } from '../types/offers';
-import { City, month } from '../const';
+import { City, MapClass, month } from '../const';
 
 const MULTIPLIER_RATING = 20;
 const FIRST_LETTER = 0;
@@ -11,6 +11,29 @@ const getUniqueCities = (offers: Offers): string[] => {
   const uniqueCities = Array.from(new Set(cities));
 
   return uniqueCities;
+};
+
+
+const getActiveCityLocation = (city: City, offers: Offers): Location => {
+  const offersActiveCity = getActiveCityOffers(city, offers);
+  const [offer] = offersActiveCity;
+
+  return {
+    latitude: offer.city.location.latitude,
+    longitude: offer.city.location.longitude,
+    zoom: offer.city.location.zoom
+  };
+};
+
+
+const getActiveOfferLocation = (offers: Offers): Location => {
+  const [activeOffer] = offers;
+
+  return {
+    latitude: activeOffer.location.latitude,
+    longitude: activeOffer.location.longitude,
+    zoom: activeOffer.location.zoom
+  };
 };
 
 
@@ -32,15 +55,13 @@ export const getFormatDate = (date: string): string => {
 };
 
 
-export const getActiveCityLocation = (city: City, offers: Offers): Location => {
-  const offersActiveCity = getActiveCityOffers(city, offers);
-  const [offer] = offersActiveCity;
+export const getLocation = (city: City, offers: Offers, mapClass: MapClass): Location => {
 
-  return {
-    latitude: offer.city.location.latitude,
-    longitude: offer.city.location.longitude,
-    zoom: offer.city.location.zoom
-  };
+  if (mapClass === MapClass.Property) {
+    return getActiveOfferLocation(offers);
+  }
+
+  return getActiveCityLocation(city, offers);
 };
 
 

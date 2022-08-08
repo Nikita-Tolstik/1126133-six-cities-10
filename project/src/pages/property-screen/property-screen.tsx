@@ -2,20 +2,20 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
-import { ImagePropertyCount, ButtonClass, PageCardClass, MapClass } from '../../const';
+import { ButtonClass, PageCardClass, MapClass } from '../../const';
 import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
 import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import PropertyImage from '../../components/property-image/property-image';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
 import OffersList from '../../components/offers-list/offers-list';
 import FormReview from '../../components/form-review/form-review';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
+import ImagesList from '../../components/images-list/images-list';
 
 
 type PropertyScreenProps = {
@@ -42,7 +42,6 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
     return <NotFoundScreen />;
   }
 
-  const images = activeOffer.images.slice(ImagePropertyCount.Start, ImagePropertyCount.End);
   const starsCount = getCountStars(activeOffer.rating);
   const reviewsCount = reviews.length;
   const offerType = capitalizeFirstLetter(activeOffer.type);
@@ -79,11 +78,9 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
-            <div className="property__gallery">
 
-              {images.map((src) => <PropertyImage key={src} src={src} />)}
+            <ImagesList imagesList={activeOffer.images} />
 
-            </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">

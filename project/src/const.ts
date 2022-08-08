@@ -1,10 +1,5 @@
 import { Icon } from 'leaflet';
 
-export enum ImagePropertyCount {
-  Start = 0,
-  End = 6,
-}
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',

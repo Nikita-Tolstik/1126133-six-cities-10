@@ -7,7 +7,6 @@ import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
-import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
@@ -16,6 +15,7 @@ import FormReview from '../../components/form-review/form-review';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import ImagesList from '../../components/images-list/images-list';
+import Header from '../../components/header/header';
 
 
 type PropertyScreenProps = {
@@ -49,31 +49,8 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper" />
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+
+      <Header />
 
       <main className="page__main page__main--property">
         <section className="property">

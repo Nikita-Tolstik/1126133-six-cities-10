@@ -1,15 +1,14 @@
 import React from 'react';
 import { ComponentClass } from '../../const';
-import { Offer } from '../../types/offers';
 import { getCountStars } from '../../utils/utils';
 
-type OfferRatingProps = {
-  offer: Offer,
+type RatingBlockProps = {
+  rating: number,
   componentClass: ComponentClass,
 }
 
-const OfferRating: React.FC<OfferRatingProps> = ({ offer, componentClass }) => {
-  const starsCount = getCountStars(offer.rating);
+const RatingBlock: React.FC<RatingBlockProps> = ({ rating, componentClass }) => {
+  const starsCount = getCountStars(rating);
   const isShowRatingValue = componentClass === ComponentClass.Property;
 
   return (
@@ -18,9 +17,9 @@ const OfferRating: React.FC<OfferRatingProps> = ({ offer, componentClass }) => {
         <span style={{ width: starsCount }}></span>
         <span className="visually-hidden">Rating</span>
       </div>
-      {isShowRatingValue && <span className="property__rating-value rating__value">{offer.rating}</span>}
+      {isShowRatingValue && <span className="property__rating-value rating__value">{rating}</span>}
     </div>
   );
 };
 
-export default OfferRating;
+export default RatingBlock;

@@ -13,7 +13,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import Map from '../../components/map/map';
 import ImagesList from '../../components/images-list/images-list';
 import Header from '../../components/header/header';
-import OfferRating from '../../components/offer-rating/offer-rating';
+import RatingBlock from '../../components/rating-block/rating-block';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import PropertyFeatures from '../../components/property-features/property-features';
 import PropertyHost from '../../components/property-host/property-host';
@@ -75,8 +75,8 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
                 />
               </div>
 
-              <OfferRating
-                offer={activeOffer}
+              <RatingBlock
+                rating={activeOffer.rating}
                 componentClass={ComponentClass.Property}
               />
 

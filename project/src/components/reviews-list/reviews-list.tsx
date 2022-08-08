@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Reviews } from '../../types/reviews';
 import UserReview from '../user-review/user-review';
 
@@ -9,11 +9,10 @@ type ReviewsListProps = {
 const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => (
   <ul className="reviews__list">
     {reviews.map((review) => (
-      <Fragment key={review.id}>
-        <UserReview
-          review={review}
-        />
-      </Fragment>)
+      <UserReview
+        key={review.id}
+        review={review}
+      />)
     )}
   </ul>
 );

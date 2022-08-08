@@ -4,7 +4,7 @@ import { capitalizeFirstLetter } from '../../utils/utils';
 import { PageCardClass, ComponentClass, ImageSize, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button';
-import OfferRating from '../offer-rating/offer-rating';
+import RatingBlock from '../rating-block/rating-block';
 import PremiumMark from '../premium-mark/premium-mark';
 
 
@@ -85,8 +85,8 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
 
         </div>
 
-        <OfferRating
-          offer={offer}
+        <RatingBlock
+          rating={offer.rating}
           componentClass={ComponentClass.OfferCard}
         />
 

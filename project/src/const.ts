@@ -29,6 +29,7 @@ export enum PageCardClass {
 export enum ComponentClass {
   Property = 'property',
   OfferCard = 'place-card',
+  Review = 'reviews'
 }
 
 export enum MapClass {

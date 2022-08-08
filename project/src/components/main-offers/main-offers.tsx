@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import { Offers } from '../../types/offers';
-import { City, PageCardClass } from '../../const';
+import { City, MapClass, PageCardClass } from '../../const';
 
 
 type MainOffersProps = {
@@ -61,6 +61,7 @@ const MainOffers: React.FC<MainOffersProps> = (props) => {
           activeCity={activeCity}
           activeCityOffers={activeCityOffers}
           activeCardId={activeCardId}
+          mapClass={MapClass.Main}
         />
       </div>
     </div>

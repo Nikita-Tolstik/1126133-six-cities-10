@@ -36,6 +36,11 @@ export enum ButtonClass {
   OfferCard = 'place-card',
 }
 
+export enum MapClass {
+  Main = 'cities__map map',
+  Property = 'property__map map'
+}
+
 export const ButtonSize = {
   Big: {
     height: 33,

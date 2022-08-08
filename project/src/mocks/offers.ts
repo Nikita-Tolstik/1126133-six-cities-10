@@ -1,6 +1,6 @@
 export const nearPlacesOffers = [
   {
-    id: 1,
+    id: 120,
     city: {
       name: 'Cologne',
       location: {
@@ -60,7 +60,7 @@ export const nearPlacesOffers = [
   },
 
   {
-    id: 2,
+    id: 130,
     city: {
       name: 'Cologne',
       location: {
@@ -113,14 +113,14 @@ export const nearPlacesOffers = [
     },
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     location: {
-      latitude: 50.934361,
-      longitude: 6.943974,
+      latitude: 51.210402,
+      longitude: 6.798314,
       zoom: 16
     }
   },
 
   {
-    id: 3,
+    id: 100,
     city: {
       name: 'Amsterdam',
       location: {
@@ -173,7 +173,7 @@ export const nearPlacesOffers = [
     },
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     location: {
-      latitude: 50.934361,
+      latitude: 50.634361,
       longitude: 6.943974,
       zoom: 16
     }

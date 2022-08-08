@@ -5,6 +5,7 @@ import { PageCardClass, ComponentClass, ImageSize, AppRoute } from '../../const'
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button';
 import OfferRating from '../offer-rating/offer-rating';
+import PremiumMark from '../premium-mark/premium-mark';
 
 
 type OfferCardProps = {
@@ -51,12 +52,10 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
       className={`${cardClass}__card place-card`}
     >
 
-      <div
-        className="place-card__mark"
-        hidden={!offer.isPremium}
-      >
-        <span>Premium</span>
-      </div>
+      <PremiumMark
+        isPremium={offer.isPremium}
+        componentClass={ComponentClass.OfferCard}
+      />
 
       <div className={`${cardClass}__image-wrapper place-card__image-wrapper`}>
         <a style={{ pointerEvents: 'none' }} href="/">

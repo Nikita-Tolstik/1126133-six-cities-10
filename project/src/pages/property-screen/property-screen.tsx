@@ -17,6 +17,7 @@ import Map from '../../components/map/map';
 import ImagesList from '../../components/images-list/images-list';
 import Header from '../../components/header/header';
 import OfferRating from '../../components/offer-rating/offer-rating';
+import PremiumMark from '../../components/premium-mark/premium-mark';
 
 
 type PropertyScreenProps = {
@@ -62,12 +63,10 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
           <div className="property__container container">
             <div className="property__wrapper">
 
-              <div
-                className="property__mark"
-                hidden={!activeOffer.isPremium}
-              >
-                <span>Premium</span>
-              </div>
+              <PremiumMark
+                isPremium={activeOffer.isPremium}
+                componentClass={ComponentClass.Property}
+              />
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">

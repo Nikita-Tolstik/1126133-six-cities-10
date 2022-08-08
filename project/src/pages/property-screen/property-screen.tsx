@@ -2,10 +2,11 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
-import { ImagePropertyCount, ButtonClass, PageCardClass } from '../../const';
+import { ImagePropertyCount, ButtonClass, PageCardClass, MapClass } from '../../const';
 import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/app-data/selectors';
+import { getActiveCity } from '../../store/app-process/selectors';
 import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropertyImage from '../../components/property-image/property-image';
@@ -14,6 +15,7 @@ import PropertyGoods from '../../components/property-goods/property-goods';
 import OffersList from '../../components/offers-list/offers-list';
 import FormReview from '../../components/form-review/form-review';
 import ReviewsList from '../../components/reviews-list/reviews-list';
+import Map from '../../components/map/map';
 
 
 type PropertyScreenProps = {
@@ -25,6 +27,7 @@ type PropertyScreenProps = {
 const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
   const { nearPlacesOffers, reviews } = props;
 
+  const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
 
   const { id } = useParams();
@@ -43,6 +46,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
   const starsCount = getCountStars(activeOffer.rating);
   const reviewsCount = reviews.length;
   const offerType = capitalizeFirstLetter(activeOffer.type);
+  const offersList = [activeOffer, ...nearPlacesOffers];
 
   return (
     <div className="page">
@@ -167,7 +171,12 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
             </div>
           </div>
 
-          <section className="property__map map"></section>
+          <Map
+            activeCity={activeCity}
+            activeCityOffers={offersList}
+            activeCardId={activeOffer.id}
+            mapClass={MapClass.Property}
+          />
         </section>
 
 

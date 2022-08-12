@@ -9,7 +9,6 @@ import useChangeLocation from '../../hooks/use-change-location';
 import useAddMarker from '../../hooks/use-add-marker';
 import useRemoveMarker from '../../hooks/use-remove-marker';
 
-
 type MapProps = {
   activeCity: City,
   activeCityOffers: Offers,
@@ -52,12 +51,7 @@ const Map: React.FC<MapProps> = (props) => {
     activeCardId
   );
 
-  return (
-    <section className={mapClass}
-      ref={mapRef}
-    >
-    </section>
-  );
+  return <section className={mapClass} ref={mapRef} />;
 };
 
-export default Map;
+export default React.memo(Map);

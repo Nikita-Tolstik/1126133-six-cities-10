@@ -1,19 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Offers } from '../../types/offers';
-import { City, MapClass, PageCardClass, SortType } from '../../const';
+import { MapClass, PageCardClass, SortType } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { filterActiveCityOffers } from '../../store/app-data/selectors';
+import { getActiveCity } from '../../store/app-process/selectors';
 import { getSortedOffers } from '../../utils/utils';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import SortOptions from '../sort-options/sort-options';
 
-type MainOffersProps = {
-  activeCityOffers: Offers,
-  activeCity: City
-}
 
-
-const MainOffers: React.FC<MainOffersProps> = (props) => {
-  const { activeCityOffers, activeCity } = props;
+const MainOffers: React.FC = () => {
+  const activeCity = useAppSelector(getActiveCity);
+  const activeCityOffers = useAppSelector(filterActiveCityOffers);
 
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
   const [activeSortType, setActiveSortType] = useState<SortType>(SortType.Popular);

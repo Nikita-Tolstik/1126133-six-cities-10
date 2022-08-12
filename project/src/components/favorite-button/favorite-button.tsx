@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ComponentClass, ButtonSize } from '../../const';
 
 type FavoriteButtonProps = {
@@ -10,9 +11,13 @@ type FavoriteButtonProps = {
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ buttonClass, isFavorite }) => {
   const buttonSize = buttonClass === ComponentClass.OfferCard ? ButtonSize.Small : ButtonSize.Big;
 
+  const btnClass = classNames(`${buttonClass}__bookmark-button button`, {
+    [`${buttonClass}__bookmark-button--active`]: isFavorite
+  });
+
   return (
     <button
-      className={`${buttonClass}__bookmark-button button ${isFavorite ? `${buttonClass}__bookmark-button--active` : ''}`}
+      className={btnClass}
       type="button"
     >
       <svg
@@ -26,6 +31,5 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ buttonClass, isFavorite
     </button>
   );
 };
-
 
 export default FavoriteButton;

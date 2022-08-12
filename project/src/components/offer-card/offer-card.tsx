@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import classNames from 'classnames';
 import { Offer } from '../../types/offers';
 import { capitalizeFirstLetter } from '../../utils/utils';
 import { PageCardClass, ComponentClass, ImageSize, AppRoute } from '../../const';
@@ -24,6 +25,10 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
 
   const isFavoriteStyle = cardClass === PageCardClass.Favorite;
   const imageSize = isFavoriteStyle ? ImageSize.Small : ImageSize.Big;
+
+  const cardInfoClass = classNames('place-card__info', {
+    'favorites__card-info': isFavoriteStyle
+  });
 
   const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
@@ -69,9 +74,7 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
         </a>
       </div>
 
-      <div
-        className={`place-card__info ${isFavoriteStyle ? 'favorites__card-info' : ''}`}
-      >
+      <div className={cardInfoClass}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}&nbsp;</b>

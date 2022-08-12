@@ -12,3 +12,8 @@ export const filterActiveCityOffers = createSelector(
   [getActiveCity, getOffers],
   (activeCity, offers) => getActiveCityOffers(activeCity, offers)
 );
+
+export const getIsEmptyOffers = createSelector(
+  [getOffers],
+  (offers) => !offers.length
+);

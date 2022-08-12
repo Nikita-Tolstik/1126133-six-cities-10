@@ -1,26 +1,36 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Offers } from '../../types/offers';
-import { City, MapClass, PageCardClass } from '../../const';
+import { City, MapClass, PageCardClass, SortType } from '../../const';
+import { getSortedOffers } from '../../utils/utils';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import SortOptions from '../sort-options/sort-options';
 
-
 type MainOffersProps = {
-  offersCount: number;
-  activeCityOffers: Offers;
-  cardClass: PageCardClass;
+  activeCityOffers: Offers,
   activeCity: City
 }
 
 
 const MainOffers: React.FC<MainOffersProps> = (props) => {
-  const { offersCount, activeCityOffers, cardClass, activeCity } = props;
+  const { activeCityOffers, activeCity } = props;
 
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
+  const [activeSortType, setActiveSortType] = useState<SortType>(SortType.Popular);
+
+  useEffect(() => {
+    setActiveSortType(SortType.Popular);
+  }, [activeCity]);
+
+  const sortedActiveCityOffers = getSortedOffers(activeSortType, activeCityOffers);
+  const offersCount = activeCityOffers.length;
 
   const onActiveCard = useCallback((value: number | null) => {
     setActiveCardId(value);
+  }, []);
+
+  const onActiveSortType = useCallback((sortType: SortType) => {
+    setActiveSortType(sortType);
   }, []);
 
   return (
@@ -32,12 +42,16 @@ const MainOffers: React.FC<MainOffersProps> = (props) => {
           {offersCount} places to stay in Amsterdam
         </b>
 
-        <SortOptions />
+        <SortOptions
+          activeCity={activeCity}
+          activeSortType={activeSortType}
+          onActiveSortType={onActiveSortType}
+        />
 
         <div className="cities__places-list places__list tabs__content">
           <OffersList
-            offers={activeCityOffers}
-            cardClass={cardClass}
+            offers={sortedActiveCityOffers}
+            cardClass={PageCardClass.Main}
             onActiveCard={onActiveCard}
           />
         </div>

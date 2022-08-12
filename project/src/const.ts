@@ -133,3 +133,17 @@ export enum NameSpace {
   Data = 'DATA',
   User = 'USER'
 }
+
+export enum SortType {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first'
+}
+
+export const sortType = [
+  SortType.Popular,
+  SortType.PriceLowToHigh,
+  SortType.PriceHighToLow,
+  SortType.TopRatedFirst
+] as const;

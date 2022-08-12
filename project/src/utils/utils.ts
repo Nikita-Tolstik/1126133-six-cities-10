@@ -1,5 +1,5 @@
 import { Offers, Offer, Location } from '../types/offers';
-import { City, MapClass, month } from '../const';
+import { City, MapClass, month, SortType } from '../const';
 
 const MULTIPLIER_RATING = 20;
 const FIRST_LETTER = 0;
@@ -78,3 +78,21 @@ export const getCitiesOffers = (offers: Offers): [string, Offer[]][] => {
   return Array.from(cityOffersMap);
 };
 
+
+export const getSortedOffers = (sortType: SortType, offers: Offers): Offers => {
+  const offersCopy = [...offers];
+
+  switch (sortType) {
+    case SortType.Popular:
+      return offersCopy;
+
+    case SortType.PriceLowToHigh:
+      return offersCopy.sort((a, b) => a.price - b.price);
+
+    case SortType.PriceHighToLow:
+      return offersCopy.sort((a, b) => b.price - a.price);
+
+    case SortType.TopRatedFirst:
+      return offersCopy.sort((a, b) => b.rating - a.rating);
+  }
+};

@@ -1,22 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { City, SortType } from '../../const';
+import SortOptionsList from '../sort-options-list/sort-options-list';
+
+type SortOptionsProps = {
+  activeCity: City,
+  activeSortType: SortType,
+  onActiveSortType: (sortType: SortType) => void
+}
 
 
-const SortOptions: React.FC = () => (
-  <form className="places__sorting" action="#" method="get">
-    <span className="places__sorting-caption">Sort by&nbsp;</span>
-    <span className="places__sorting-type" tabIndex={0}>
-      Popular
-      <svg className="places__sorting-arrow" width="7" height="4">
-        <use xlinkHref="#icon-arrow-select"></use>
-      </svg>
-    </span>
-    <ul className="places__options places__options--custom">
-      <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-      <li className="places__option" tabIndex={0}>Price: low to high</li>
-      <li className="places__option" tabIndex={0}>Price: high to low</li>
-      <li className="places__option" tabIndex={0}>Top rated first</li>
-    </ul>
-  </form>
-);
+const SortOptions: React.FC<SortOptionsProps> = (props) => {
+  const { activeCity, activeSortType, onActiveSortType } = props;
 
-export default SortOptions;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [activeCity]);
+
+  return (
+    <form className="places__sorting" action="#" method="get">
+      <span className="places__sorting-caption">Sort by&nbsp;</span>
+      <span
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}
+        className="places__sorting-type"
+        tabIndex={0}
+      >
+        {activeSortType}
+        <svg className="places__sorting-arrow" width="7" height="4">
+          <use xlinkHref="#icon-arrow-select"></use>
+        </svg>
+      </span>
+
+      <SortOptionsList
+        isOpen={isOpen}
+        activeSortType={activeSortType}
+        onActiveSortType={onActiveSortType}
+      />
+    </form>
+  );
+};
+
+export default React.memo(SortOptions);

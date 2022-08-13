@@ -14,7 +14,8 @@ export type AppData = {
   offersList: Offers,
   isOffersListLoading: boolean,
   offer: Offer | null,
-  isOfferLoading: boolean
+  isOfferLoading: boolean,
+  nearOffers: Offers,
 }
 
 export type State = ReturnType<typeof store.getState>;

@@ -13,6 +13,8 @@ export const getOffer = (state: State): Offer | null => state[NameSpace.Data].of
 
 export const getOfferLoadStatus = (state: State): boolean => state[NameSpace.Data].isOfferLoading;
 
+export const getNearOffers = (state: State): Offers => state[NameSpace.Data].nearOffers;
+
 export const filterActiveCityOffers = createSelector(
   [getActiveCity, getOffersList],
   (activeCity, offersList) => getActiveCityOffers(activeCity, offersList)

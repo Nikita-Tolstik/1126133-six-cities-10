@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { ComponentClass, PageCardClass, MapClass } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getOfferLoadStatus, getOffer } from '../../store/app-data/selectors';
+import { getOfferLoadStatus, getOffer, getNearOffers } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
-import { fetchOfferAction } from '../../store/api-actions';
+import { fetchNearOffers, fetchOfferAction } from '../../store/api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
@@ -22,27 +21,29 @@ import PropertyReviews from '../../components/property-reviews/property-reviews'
 import LoadingScreen from '../loading-screen/loading-screen';
 
 type PropertyScreenProps = {
-  nearPlacesOffers: Offers;
   reviews: Reviews
 }
 
 
 const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
-  const { nearPlacesOffers, reviews } = props;
+  const { reviews } = props;
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
   useEffect(() => {
-    const promiseFetchOffer = dispatch(fetchOfferAction(id));
+    const promiseOffer = dispatch(fetchOfferAction(id));
+    const promiseNearOffers = dispatch(fetchNearOffers(id));
 
     return () => {
-      promiseFetchOffer.abort();
+      promiseOffer.abort();
+      promiseNearOffers.abort();
     };
   }, [id, dispatch]);
 
   const activeCity = useAppSelector(getActiveCity);
   const activeOffer = useAppSelector(getOffer);
+  const nearOffers = useAppSelector(getNearOffers);
 
   const isDataLoading = useAppSelector(getOfferLoadStatus);
   const isNotFoundOffer = activeOffer === null;
@@ -55,7 +56,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
     return <NotFoundScreen />;
   }
 
-  const offersList = [activeOffer, ...nearPlacesOffers];
+  const offersList = [activeOffer, ...nearOffers];
 
   return (
     <div className="page">
@@ -121,7 +122,7 @@ const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
             <div className="near-places__list places__list">
 
               <OffersList
-                offers={nearPlacesOffers}
+                offers={nearOffers}
                 cardClass={PageCardClass.Property}
               />
             </div>

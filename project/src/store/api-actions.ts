@@ -2,8 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
+import { OfferId } from '../types/app-data';
 import { AuthData } from '../types/auth-data';
-import { Offers } from '../types/offers';
+import { Offer, Offers } from '../types/offers';
 import { AppDispatch, State } from '../types/state';
 import { UserData } from '../types/user-data';
 import { redirectToRoute } from './action';
@@ -14,9 +15,22 @@ export const fetchOffersListAction = createAsyncThunk<Offers, undefined, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchOffers',
-  async (_arg, { extra: api }) => {
+  'data/fetchOffersList',
+  async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<Offers>(APIRoute.Offers);
+    return data;
+  },
+);
+
+
+export const fetchOfferAction = createAsyncThunk<Offer, OfferId, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchOffer',
+  async (id, { dispatch, extra: api }) => {
+    const { data } = await api.get<Offer>(`${APIRoute.Offer}${id}`);
     return data;
   },
 );
@@ -28,7 +42,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'user/checkAuth',
-  async (_arg, { extra: api }) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.get(APIRoute.Login);
   },
 );
@@ -54,7 +68,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance
 }>(
   'user/logout',
-  async (_arg, { extra: api }) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
   },

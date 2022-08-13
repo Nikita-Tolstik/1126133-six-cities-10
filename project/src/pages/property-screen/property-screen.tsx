@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { ComponentClass, PageCardClass, MapClass } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getOffers } from '../../store/app-data/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getOfferLoadStatus, getOffer } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
+import { fetchOfferAction } from '../../store/api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
@@ -18,7 +19,7 @@ import PremiumMark from '../../components/premium-mark/premium-mark';
 import PropertyFeatures from '../../components/property-features/property-features';
 import PropertyHost from '../../components/property-host/property-host';
 import PropertyReviews from '../../components/property-reviews/property-reviews';
-
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type PropertyScreenProps = {
   nearPlacesOffers: Offers;
@@ -29,18 +30,28 @@ type PropertyScreenProps = {
 const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
   const { nearPlacesOffers, reviews } = props;
 
-  const activeCity = useAppSelector(getActiveCity);
-  const offers = useAppSelector(getOffers);
-
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const numId = Number(id);
 
-  const activeOffer = offers.find((offer) => offer.id === numId);
+  useEffect(() => {
+    const promiseFetchOffer = dispatch(fetchOfferAction(id));
 
-  const isNaN = !numId;
-  const isNotOffer = !activeOffer;
+    return () => {
+      promiseFetchOffer.abort();
+    };
+  }, [id, dispatch]);
 
-  if (isNaN || isNotOffer) {
+  const activeCity = useAppSelector(getActiveCity);
+  const activeOffer = useAppSelector(getOffer);
+
+  const isDataLoading = useAppSelector(getOfferLoadStatus);
+  const isNotFoundOffer = activeOffer === null;
+
+  if (isDataLoading) {
+    return <LoadingScreen />;
+  }
+
+  if (isNotFoundOffer) {
     return <NotFoundScreen />;
   }
 

@@ -9,7 +9,7 @@ import { UserData } from '../types/user-data';
 import { redirectToRoute } from './action';
 
 
-export const fetchOfferAction = createAsyncThunk<Offers, undefined, {
+export const fetchOffersListAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

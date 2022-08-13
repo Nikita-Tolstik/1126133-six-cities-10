@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { AppData } from '../../types/state';
-import { fetchOfferAction } from '../api-actions';
+import { fetchOffersListAction } from '../api-actions';
 
 const initialState: AppData = {
   offers: [],
@@ -13,14 +13,14 @@ export const appData = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchOfferAction.pending, (state) => {
+      .addCase(fetchOffersListAction.pending, (state) => {
         state.isDataLoaded = true;
       })
-      .addCase(fetchOfferAction.fulfilled, (state, action) => {
+      .addCase(fetchOffersListAction.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isDataLoaded = false;
       })
-      .addCase(fetchOfferAction.rejected, (state) => {
+      .addCase(fetchOffersListAction.rejected, (state) => {
         state.isDataLoaded = false;
       });
   }

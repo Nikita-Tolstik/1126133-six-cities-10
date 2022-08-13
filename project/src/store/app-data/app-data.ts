@@ -1,27 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { AppData } from '../../types/state';
-import { fetchOffersListAction } from '../api-actions';
+import { fetchOfferAction, fetchOffersListAction } from '../api-actions';
 
 const initialState: AppData = {
-  offers: [],
-  isDataLoaded: false,
+  offersList: [],
+  isOffersListLoading: true,
+  offer: null,
+  isOfferLoading: true
 };
+
 export const appData = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersListAction.pending, (state) => {
-        state.isDataLoaded = true;
-      })
       .addCase(fetchOffersListAction.fulfilled, (state, action) => {
-        state.offers = action.payload;
-        state.isDataLoaded = false;
+        state.offersList = action.payload;
+        state.isOffersListLoading = false;
       })
       .addCase(fetchOffersListAction.rejected, (state) => {
-        state.isDataLoaded = false;
+        state.isOffersListLoading = false;
+      });
+
+    builder
+      .addCase(fetchOfferAction.pending, (state) => {
+        state.isOfferLoading = true;
+        state.offer = null;
+      })
+      .addCase(fetchOfferAction.fulfilled, (state, action) => {
+        state.offer = action.payload;
+        state.isOfferLoading = false;
+      })
+      .addCase(fetchOfferAction.rejected, (state) => {
+        state.isOfferLoading = false;
       });
   }
 });

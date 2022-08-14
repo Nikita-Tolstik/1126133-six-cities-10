@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offers } from '../../types/offers';
-import { Reviews } from '../../types/reviews';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import FavoriteScreen from '../../pages/favorite-screen/favorite-screen';
@@ -14,13 +13,11 @@ import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   favoriteOffers: Offers;
-  nearPlacesOffers: Offers;
-  reviews: Reviews;
 }
 
 
 const App: React.FC<AppScreenProps> = (props) => {
-  const { favoriteOffers, nearPlacesOffers, reviews } = props;
+  const { favoriteOffers } = props;
 
   return (
     <HistoryRouter history={browserHistory}>
@@ -32,10 +29,7 @@ const App: React.FC<AppScreenProps> = (props) => {
         <Route
           path={`${AppRoute.Property}/:id`}
           element={
-            <PropertyScreen
-              nearPlacesOffers={nearPlacesOffers}
-              reviews={reviews}
-            />
+            <PropertyScreen />
           }
         />
         <Route

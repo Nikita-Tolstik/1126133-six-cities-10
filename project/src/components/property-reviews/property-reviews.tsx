@@ -7,10 +7,11 @@ import FormReview from '../form-review/form-review';
 import ReviewsList from '../reviews-list/reviews-list';
 
 type PropertyReviewsProps = {
+  offerId: number,
   reviews: Reviews
 }
 
-const PropertyReviews: React.FC<PropertyReviewsProps> = ({ reviews }) => {
+const PropertyReviews: React.FC<PropertyReviewsProps> = ({ offerId, reviews }) => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isShowForm = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -24,7 +25,7 @@ const PropertyReviews: React.FC<PropertyReviewsProps> = ({ reviews }) => {
         reviews={reviews}
       />
 
-      {isShowForm && <FormReview />}
+      {isShowForm && <FormReview offerId={offerId} />}
     </section>
   );
 };

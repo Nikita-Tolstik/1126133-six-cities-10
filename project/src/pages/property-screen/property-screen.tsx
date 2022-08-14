@@ -104,7 +104,7 @@ const PropertyScreen: React.FC = () => {
 
               <PropertyHost offer={activeOffer} />
 
-              <PropertyReviews reviews={reviews} />
+              <PropertyReviews offerId={activeOffer.id} reviews={reviews} />
 
             </div>
           </div>

@@ -1,20 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { AppData } from '../../types/state';
-import { fetchNearOffers, fetchOfferAction, fetchOffersListAction } from '../api-actions';
+import { fetchNearOffersAction, fetchOfferAction, fetchOffersListAction, fetchRewiesAction } from '../api-actions';
 
 const initialState: AppData = {
   offersList: [],
   isOffersListLoading: true,
   offer: null,
-  isOfferLoading: true,
   nearOffers: [],
+  reviews: [],
+  isOfferDataLoading: true,
 };
 
 export const appData = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    setOfferDataLoadStatus: (state, action) => {
+      state.isOfferDataLoading = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOffersListAction.fulfilled, (state, action) => {
@@ -27,23 +32,29 @@ export const appData = createSlice({
 
     builder
       .addCase(fetchOfferAction.pending, (state) => {
-        state.isOfferLoading = true;
+        state.isOfferDataLoading = true;
         state.offer = null;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.offer = action.payload;
-        state.isOfferLoading = false;
-      })
-      .addCase(fetchOfferAction.rejected, (state) => {
-        state.isOfferLoading = false;
       });
 
     builder
-      .addCase(fetchNearOffers.pending, (state) => {
+      .addCase(fetchNearOffersAction.pending, (state) => {
         state.nearOffers = [];
       })
-      .addCase(fetchNearOffers.fulfilled, (state, action) => {
+      .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
         state.nearOffers = action.payload;
+      });
+
+    builder
+      .addCase(fetchRewiesAction.pending, (state) => {
+        state.reviews = [];
+      })
+      .addCase(fetchRewiesAction.fulfilled, (state, action) => {
+        state.reviews = action.payload;
       });
   }
 });
+
+export const { setOfferDataLoadStatus } = appData.actions;

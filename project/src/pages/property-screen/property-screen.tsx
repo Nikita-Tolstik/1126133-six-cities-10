@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Reviews } from '../../types/reviews';
 import { ComponentClass, PageCardClass, MapClass } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getOfferLoadStatus, getOffer, getNearOffers } from '../../store/app-data/selectors';
+import { getOfferDataLoadStatus, getOffer, getNearOffers, getReviews } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
-import { fetchNearOffers, fetchOfferAction } from '../../store/api-actions';
+import { fetchNearOffersAction, fetchOfferAction, fetchRewiesAction } from '../../store/api-actions';
+import { setOfferDataLoadStatus } from '../../store/app-data/app-data';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
@@ -20,32 +20,33 @@ import PropertyHost from '../../components/property-host/property-host';
 import PropertyReviews from '../../components/property-reviews/property-reviews';
 import LoadingScreen from '../loading-screen/loading-screen';
 
-type PropertyScreenProps = {
-  reviews: Reviews
-}
 
-
-const PropertyScreen: React.FC<PropertyScreenProps> = (props) => {
-  const { reviews } = props;
+const PropertyScreen: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
   useEffect(() => {
     const promiseOffer = dispatch(fetchOfferAction(id));
-    const promiseNearOffers = dispatch(fetchNearOffers(id));
+    const promiseNearOffers = dispatch(fetchNearOffersAction(id));
+    const promiseReviews = dispatch(fetchRewiesAction(id));
+
+    Promise.allSettled([promiseOffer, promiseNearOffers, promiseReviews])
+      .then(() => dispatch(setOfferDataLoadStatus(false)));
 
     return () => {
       promiseOffer.abort();
       promiseNearOffers.abort();
+      promiseReviews.abort();
     };
   }, [id, dispatch]);
 
   const activeCity = useAppSelector(getActiveCity);
   const activeOffer = useAppSelector(getOffer);
   const nearOffers = useAppSelector(getNearOffers);
+  const reviews = useAppSelector(getReviews);
 
-  const isDataLoading = useAppSelector(getOfferLoadStatus);
+  const isDataLoading = useAppSelector(getOfferDataLoadStatus);
   const isNotFoundOffer = activeOffer === null;
 
   if (isDataLoading) {

@@ -1,6 +1,7 @@
 import { AuthorizationStatus, City } from '../const';
 import { store } from '../store';
 import { Offer, Offers } from './offers';
+import { Reviews } from './reviews';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus
@@ -14,8 +15,9 @@ export type AppData = {
   offersList: Offers,
   isOffersListLoading: boolean,
   offer: Offer | null,
-  isOfferLoading: boolean,
   nearOffers: Offers,
+  reviews: Reviews,
+  isOfferDataLoading: boolean,
 }
 
 export type State = ReturnType<typeof store.getState>;

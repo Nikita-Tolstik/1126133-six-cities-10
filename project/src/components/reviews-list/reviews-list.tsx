@@ -9,7 +9,8 @@ type ReviewsListProps = {
 const MAX_COMMENT = 10;
 
 const ReviewsList: React.FC<ReviewsListProps> = ({ reviews }) => {
-  const sortedReviews = reviews.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  const reviewsCopy = [...reviews];
+  const sortedReviews = reviewsCopy.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
   const limitedReviews = sortedReviews.length > MAX_COMMENT ? sortedReviews.slice(0, MAX_COMMENT) : sortedReviews;
 
   return (

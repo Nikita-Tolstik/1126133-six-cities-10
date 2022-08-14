@@ -9,10 +9,11 @@ export enum AppRoute {
 }
 
 export enum APIRoute {
-  Offers = '/hotels',
-  Offer = '/hotels/',
+  Offer = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Nearby = 'nearby',
+  Comment = '/comments',
 }
 
 export enum AuthorizationStatus {

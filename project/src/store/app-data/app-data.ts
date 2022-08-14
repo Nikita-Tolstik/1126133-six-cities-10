@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { AppData } from '../../types/state';
-import { fetchNearOffersAction, fetchOfferAction, fetchOffersListAction, fetchRewiesAction } from '../api-actions';
+import { fetchNearOffersAction, fetchOfferAction, fetchOffersListAction, fetchRewiesAction, postUserReviewAction } from '../api-actions';
 
 const initialState: AppData = {
   offersList: [],
@@ -10,6 +10,8 @@ const initialState: AppData = {
   nearOffers: [],
   reviews: [],
   isOfferDataLoading: true,
+  isReviewSending: false,
+  isReviewSendSuccess: false,
 };
 
 export const appData = createSlice({
@@ -18,7 +20,10 @@ export const appData = createSlice({
   reducers: {
     setOfferDataLoadStatus: (state, action) => {
       state.isOfferDataLoading = action.payload;
-    }
+    },
+    resetReviewSendSuccessStatus: (state) => {
+      state.isReviewSendSuccess = false;
+    },
   },
   extraReducers(builder) {
     builder
@@ -32,6 +37,7 @@ export const appData = createSlice({
 
     builder
       .addCase(fetchOfferAction.pending, (state) => {
+        state.isReviewSending = false;
         state.isOfferDataLoading = true;
         state.offer = null;
       })
@@ -54,7 +60,22 @@ export const appData = createSlice({
       .addCase(fetchRewiesAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       });
+
+    builder
+      .addCase(postUserReviewAction.pending, (state) => {
+        state.isReviewSending = true;
+      })
+      .addCase(postUserReviewAction.fulfilled, (state, action) => {
+        if (state.offer !== null && state.offer.id === action.payload.id) {
+          state.reviews = action.payload.data;
+          state.isReviewSending = false;
+          state.isReviewSendSuccess = true;
+        }
+      })
+      .addCase(postUserReviewAction.rejected, (state) => {
+        state.isReviewSending = false;
+      });
   }
 });
 
-export const { setOfferDataLoadStatus } = appData.actions;
+export const { setOfferDataLoadStatus, resetReviewSendSuccessStatus } = appData.actions;

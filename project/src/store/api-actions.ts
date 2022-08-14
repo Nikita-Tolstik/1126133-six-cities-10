@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AppRoute } from '../const';
 import { dropToken, saveToken } from '../services/token';
-import { OfferId } from '../types/app-data';
+import { OfferId, ReviewData } from '../types/app-data';
 import { AuthData } from '../types/auth-data';
 import { Offer, Offers } from '../types/offers';
 import { Reviews } from '../types/reviews';
@@ -60,6 +60,19 @@ export const fetchRewiesAction = createAsyncThunk<Reviews, OfferId, {
     const { data } = await api.get<Reviews>(`${APIRoute.Comment}/${id}`);
     return data;
   },
+);
+
+
+export const postUserReviewAction = createAsyncThunk<{ data: Reviews, id: number }, ReviewData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/postUserReview',
+  async ({ id, rating, comment }, { dispatch, extra: api }) => {
+    const { data } = await api.post<Reviews>(`${APIRoute.Comment}/${id}`, { rating, comment });
+    return ({ data, id });
+  }
 );
 
 

@@ -18,6 +18,10 @@ export const getReviews = (state: State): Reviews => state[NameSpace.Data].revie
 
 export const getOfferDataLoadStatus = (state: State): boolean => state[NameSpace.Data].isOfferDataLoading;
 
+export const getReviewSendStatus = (state: State): boolean => state[NameSpace.Data].isReviewSending;
+
+export const getReviewSendSuccessStatus = (state: State): boolean => state[NameSpace.Data].isReviewSendSuccess;
+
 export const filterActiveCityOffers = createSelector(
   [getActiveCity, getOffersList],
   (activeCity, offersList) => getActiveCityOffers(activeCity, offersList)

@@ -149,3 +149,13 @@ export const sortType = [
   SortType.PriceHighToLow,
   SortType.TopRatedFirst
 ] as const;
+
+export const TextLength = {
+  Min: 50,
+  Max: 300
+} as const;
+
+export const ButtonName = {
+  Submit: 'Submit',
+  Sending: 'Sending...'
+};

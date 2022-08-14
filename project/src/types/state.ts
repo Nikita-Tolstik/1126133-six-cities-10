@@ -18,6 +18,8 @@ export type AppData = {
   nearOffers: Offers,
   reviews: Reviews,
   isOfferDataLoading: boolean,
+  isReviewSending: boolean,
+  isReviewSendSuccess: boolean
 }
 
 export type State = ReturnType<typeof store.getState>;

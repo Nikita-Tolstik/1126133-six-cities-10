@@ -159,3 +159,8 @@ export const ButtonName = {
   Submit: 'Submit',
   Sending: 'Sending...'
 };
+
+export const Timer = {
+  OfferCard: 500,
+  FormReview: 2000,
+} as const;

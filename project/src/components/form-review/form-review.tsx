@@ -1,11 +1,13 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
-import { ButtonName, TextLength } from '../../const';
+import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
+import { ButtonName, TextLength, Timer } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postUserReviewAction } from '../../store/api-actions';
-import { resetReviewSendSuccessStatus } from '../../store/app-data/app-data';
-import { getReviewSendStatus, getReviewSendSuccessStatus } from '../../store/app-data/selectors';
+import { clearErrorMessage, resetReviewSendSuccessStatus } from '../../store/app-data/app-data';
+import { getErrorMessage, getReviewSendStatus, getReviewSendSuccessStatus } from '../../store/app-data/selectors';
 import { ReviewData } from '../../types/app-data';
 import { CommentForm } from '../../types/reviews';
+import classNames from 'classnames';
+import ErrorMessage from '../error-message/error-message';
 import FormRatingInput from '../form-rating-input/form-rating-input';
 
 type FormReviewProps = {
@@ -20,9 +22,34 @@ const FormReview: React.FC<FormReviewProps> = ({ offerId }) => {
 
   const isReviewSending = useAppSelector(getReviewSendStatus);
   const isReviewSendSuccess = useAppSelector(getReviewSendSuccessStatus);
+  const errorMessage = useAppSelector(getErrorMessage);
 
-  const isDisabledBtn = review.rating === null || review.comment.length < TextLength.Min || isReviewSending;
+  const isErrorMessage = Boolean(errorMessage);
+  const isDisabledForm = isReviewSending || isErrorMessage;
+  const isDisabledBtn = review.rating === null || review.comment.length < TextLength.Min || isReviewSending || isErrorMessage;
+
   const buttonName = isReviewSending ? ButtonName.Sending : ButtonName.Submit;
+
+  const textareaClass = classNames('reviews__textarea form__textarea', {
+    'error__reviews__textarea horizontal-shake': isErrorMessage
+  });
+
+  const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
+
+  if (isErrorMessage) {
+    timerRef.current = setTimeout(() => {
+      dispatch(clearErrorMessage());
+      timerRef.current = undefined;
+    }, Timer.FormReview);
+  }
+
+  useEffect(
+    () =>
+      () => {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+      }, []);
 
   useEffect(() => {
     if (isReviewSendSuccess) {
@@ -61,8 +88,10 @@ const FormReview: React.FC<FormReviewProps> = ({ offerId }) => {
         }}
         className="reviews__rating-form form__rating"
       >
-        <FormRatingInput isDisabled={isReviewSending} rating={review.rating} />
+        <FormRatingInput isDisabled={isDisabledForm} rating={review.rating} />
       </div>
+
+      <ErrorMessage errorMessage={errorMessage} />
 
       <textarea
         onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
@@ -72,13 +101,13 @@ const FormReview: React.FC<FormReviewProps> = ({ offerId }) => {
           });
         }}
         value={review.comment}
-        className="reviews__textarea form__textarea"
+        className={textareaClass}
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={TextLength.Min}
         maxLength={TextLength.Max}
-        disabled={isReviewSending}
+        disabled={isDisabledForm}
       >
       </textarea>
 

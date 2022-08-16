@@ -19,7 +19,8 @@ export type AppData = {
   reviews: Reviews,
   isOfferDataLoading: boolean,
   isReviewSending: boolean,
-  isReviewSendSuccess: boolean
+  isReviewSendSuccess: boolean,
+  errorMessage: string | null,
 }
 
 export type State = ReturnType<typeof store.getState>;

@@ -12,6 +12,7 @@ const initialState: AppData = {
   isOfferDataLoading: true,
   isReviewSending: false,
   isReviewSendSuccess: false,
+  errorMessage: null,
 };
 
 export const appData = createSlice({
@@ -24,6 +25,18 @@ export const appData = createSlice({
     resetReviewSendSuccessStatus: (state) => {
       state.isReviewSendSuccess = false;
     },
+    clearErrorMessage: (state) => {
+      state.errorMessage = null;
+    },
+    clearOfferPageData: (state) => {
+      state.offer = null;
+      state.isOfferDataLoading = true;
+      state.nearOffers = [];
+      state.reviews = [];
+      state.errorMessage = null;
+      state.isReviewSending = false;
+      state.isReviewSendSuccess = false;
+    }
   },
   extraReducers(builder) {
     builder
@@ -37,26 +50,18 @@ export const appData = createSlice({
 
     builder
       .addCase(fetchOfferAction.pending, (state) => {
-        state.isReviewSending = false;
         state.isOfferDataLoading = true;
-        state.offer = null;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.offer = action.payload;
       });
 
     builder
-      .addCase(fetchNearOffersAction.pending, (state) => {
-        state.nearOffers = [];
-      })
       .addCase(fetchNearOffersAction.fulfilled, (state, action) => {
         state.nearOffers = action.payload;
       });
 
     builder
-      .addCase(fetchRewiesAction.pending, (state) => {
-        state.reviews = [];
-      })
       .addCase(fetchRewiesAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       });
@@ -72,10 +77,18 @@ export const appData = createSlice({
           state.isReviewSendSuccess = true;
         }
       })
-      .addCase(postUserReviewAction.rejected, (state) => {
+      .addCase(postUserReviewAction.rejected, (state, action) => {
         state.isReviewSending = false;
+        if (action.error.message) {
+          state.errorMessage = action.error.message;
+        }
       });
   }
 });
 
-export const { setOfferDataLoadStatus, resetReviewSendSuccessStatus } = appData.actions;
+export const {
+  setOfferDataLoadStatus,
+  resetReviewSendSuccessStatus,
+  clearErrorMessage,
+  clearOfferPageData
+} = appData.actions;

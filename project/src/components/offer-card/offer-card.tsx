@@ -2,20 +2,17 @@ import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Offer } from '../../types/offers';
 import { capitalizeFirstLetter } from '../../utils/utils';
-import { PageCardClass, ComponentClass, ImageSize, AppRoute } from '../../const';
+import { PageCardClass, ComponentClass, ImageSize, AppRoute, Timer } from '../../const';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button';
 import RatingBlock from '../rating-block/rating-block';
 import PremiumMark from '../premium-mark/premium-mark';
-
 
 type OfferCardProps = {
   offer: Offer;
   cardClass: PageCardClass;
   onActiveCard?: (value: number | null) => void;
 };
-
-const TIMER = 500;
 
 
 const OfferCard: React.FC<OfferCardProps> = (props) => {
@@ -34,7 +31,7 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
 
   const handleActiveCard = () => {
     if (onActiveCard !== undefined) {
-      timerRef.current = setTimeout(() => onActiveCard(offer.id), TIMER);
+      timerRef.current = setTimeout(() => onActiveCard(offer.id), Timer.OfferCard);
     }
   };
 
@@ -42,13 +39,17 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
     if (onActiveCard !== undefined) {
       onActiveCard(null);
       clearTimeout(timerRef.current);
+      timerRef.current = undefined;
     }
   };
 
   useEffect(
     () =>
-      () =>
-        clearTimeout(timerRef.current), []);
+      () => {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+      }, []);
 
   return (
     <article

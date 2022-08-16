@@ -91,7 +91,7 @@ const FormReview: React.FC<FormReviewProps> = ({ offerId }) => {
         <FormRatingInput isDisabled={isDisabledForm} rating={review.rating} />
       </div>
 
-      <ErrorMessage errorMessage={errorMessage} />
+      {isErrorMessage && <ErrorMessage errorMessage={errorMessage} />}
 
       <textarea
         onChange={({ target }: ChangeEvent<HTMLTextAreaElement>) => {

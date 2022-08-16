@@ -38,4 +38,4 @@ const FormRatingInput: React.FC<FormRatingInputProps> = ({ isDisabled, rating })
   </Fragment>
 );
 
-export default FormRatingInput;
+export default React.memo(FormRatingInput);

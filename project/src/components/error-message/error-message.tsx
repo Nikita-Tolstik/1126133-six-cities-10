@@ -6,8 +6,6 @@ type ErrorMessageProps = {
 }
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ errorMessage }) =>
-  errorMessage ?
-    <div className="error__message horizontal-shake">{errorMessage}</div>
-    : null;
+  <div className="error__message horizontal-shake">{errorMessage}</div>;
 
 export default ErrorMessage;

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOfferDataLoadStatus, getOffer, getNearOffers, getReviews } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
 import { fetchNearOffersAction, fetchOfferAction, fetchRewiesAction } from '../../store/api-actions';
-import { setOfferDataLoadStatus } from '../../store/app-data/app-data';
+import { clearOfferPageData, setOfferDataLoadStatus } from '../../store/app-data/app-data';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
@@ -38,6 +38,7 @@ const PropertyScreen: React.FC = () => {
       promiseOffer.abort();
       promiseNearOffers.abort();
       promiseReviews.abort();
+      dispatch(clearOfferPageData());
     };
   }, [id, dispatch]);
 

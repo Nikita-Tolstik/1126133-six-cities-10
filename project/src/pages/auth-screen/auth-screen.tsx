@@ -1,29 +1,51 @@
-import React, { FormEvent, useRef } from 'react';
+import React from 'react';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AuthData } from '../../types/auth-data';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { ButtonName, Pattern } from '../../const';
+import classNames from 'classnames';
+import ErrorMessage from '../../components/error-message/error-message';
+
+type FormData = {
+  email: string,
+  password: string
+}
+
 
 const AuthScreen: React.FC = () => {
 
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      errors,
+      isValid,
+      isSubmitting
+    }
+  } = useForm<FormData>({
+    mode: 'all'
+  });
+
+  const errorEmail = classNames('login__input form__input', {
+    'input__login__error': errors?.email
+  });
+
+  const errorPassword = classNames('login__input form__input', {
+    'input__login__error': errors?.password
+  });
+
+  const isDisabledBtn = !isValid || isSubmitting;
+  const buttonName = isSubmitting ? ButtonName.Sending : ButtonName.SignIn;
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
-  };
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    await dispatch(loginAction({
+      login: formData.email,
+      password: formData.password
+    }));
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
-        login: loginRef.current.value,
-        password: passwordRef.current.value,
-      });
-    }
   };
 
   return (
@@ -44,40 +66,57 @@ const AuthScreen: React.FC = () => {
             <h1 className="login__title">Sign in</h1>
 
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
               className="login__form form"
               action="#"
               method="post"
+              noValidate
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-
                 <input
-                  ref={loginRef}
-                  className="login__input form__input"
+                  {...register('email', {
+                    required: 'Must be E-mail (e.g. name@example.com)',
+                    pattern: {
+                      value: Pattern.Email,
+                      message: 'Enter valid E-mail (e.g. name@example.com)'
+                    }
+                  })}
+                  className={errorEmail}
                   type="email"
-                  name="email"
                   placeholder="Email"
-                  pattern='^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-                  required
+                  title="Must be E-mail (e.g. name@example.com)"
+                  disabled={isSubmitting}
                 />
+                {errors?.email && <ErrorMessage isLoginMessage errorMessage={errors.email?.message} />}
               </div>
+
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-
                 <input
-                  ref={passwordRef}
-                  className="login__input form__input"
+                  {...register('password', {
+                    required: 'Must be entered Password',
+                    pattern: {
+                      value: Pattern.Password,
+                      message: 'Password must contain Letters and Numbers. Min 2 chatacters. No Spaces.'
+                    }
+                  })}
+                  className={errorPassword}
                   type="password"
-                  name="password"
                   placeholder="Password"
-                  title='Minimum one letter and one number. No spaces.'
-                  pattern='^(?=.*[A-Za-z])(?!.* )(?=.*\d).{1,}$'
-                  required
+                  title="Password must contain Letters and Numbers. Min 2 chatacters. No Spaces."
+                  disabled={isSubmitting}
                 />
+                {errors?.password && <ErrorMessage isLoginMessage errorMessage={errors.password?.message} />}
               </div>
 
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button
+                disabled={isDisabledBtn}
+                className="login__submit form__submit button"
+                type="submit"
+              >
+                {buttonName}
+              </button>
             </form>
 
           </section>

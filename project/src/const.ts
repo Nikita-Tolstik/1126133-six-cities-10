@@ -157,10 +157,16 @@ export const TextLength = {
 
 export const ButtonName = {
   Submit: 'Submit',
-  Sending: 'Sending...'
+  SignIn: 'Sign in',
+  Sending: 'Sending...',
 };
 
 export const Timer = {
   OfferCard: 500,
   FormReview: 2000,
 } as const;
+
+export const Pattern = {
+  Email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+  Password: /^(?=.*[A-Za-z])(?!.* )(?=.*\d).{1,}$/
+};

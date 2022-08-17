@@ -1884,7 +1884,12 @@ img {
 }
 
 .login__submit {
-  width: 100%
+  width: 100%;
+  margin-top: 15px
+}
+
+.input__login__error {
+  border: solid #ff4a4a 2px;
 }
 
 .favorites {

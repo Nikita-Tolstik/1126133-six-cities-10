@@ -8,6 +8,7 @@ import FavoriteScreen from '../../pages/favorite-screen/favorite-screen';
 import AuthScreen from '../../pages/auth-screen/auth-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../../components/private-route/private-route';
+import PrivateRouteLogin from '../private-route-login/private-route-login';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
@@ -42,7 +43,11 @@ const App: React.FC<AppScreenProps> = (props) => {
         />
         <Route
           path={AppRoute.Login}
-          element={<AuthScreen />}
+          element={
+            <PrivateRouteLogin>
+              <AuthScreen />
+            </PrivateRouteLogin>
+          }
         />
         <Route
           path={AppRoute.NotFound}

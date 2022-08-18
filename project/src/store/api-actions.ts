@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AppRoute } from '../const';
+import { toast } from 'react-toastify';
+import { APIRoute, AppRoute, ToastText } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { OfferId, ReviewData } from '../types/app-data';
 import { AuthData } from '../types/auth-data';
@@ -98,6 +99,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
+    toast.success(ToastText.SuccessLogged);
   },
 );
 

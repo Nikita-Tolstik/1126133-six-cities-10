@@ -1,11 +1,12 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
-import { ButtonName, TextLength, Timer } from '../../const';
+import { ButtonName, TextLength, Timer, ToastText } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postUserReviewAction } from '../../store/api-actions';
 import { clearErrorMessage, resetReviewSendSuccessStatus } from '../../store/app-data/app-data';
 import { getErrorMessage, getReviewSendStatus, getReviewSendSuccessStatus } from '../../store/app-data/selectors';
 import { ReviewData } from '../../types/app-data';
 import { CommentForm } from '../../types/reviews';
+import { toast } from 'react-toastify';
 import classNames from 'classnames';
 import ErrorMessage from '../error-message/error-message';
 import FormRatingInput from '../form-rating-input/form-rating-input';
@@ -53,6 +54,7 @@ const FormReview: React.FC<FormReviewProps> = ({ offerId }) => {
 
   useEffect(() => {
     if (isReviewSendSuccess) {
+      toast.success(ToastText.ReviewAdded);
       setReview({ rating: null, comment: '' });
       dispatch(resetReviewSendSuccessStatus());
     }
@@ -64,6 +66,7 @@ const FormReview: React.FC<FormReviewProps> = ({ offerId }) => {
 
   const handleSubmit = (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
+    toast.dismiss();
 
     if (review.rating) {
       onSubmit({

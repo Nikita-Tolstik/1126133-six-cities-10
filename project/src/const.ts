@@ -172,3 +172,8 @@ export const Pattern = {
   Email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
   Password: /^(?=.*[A-Za-z])(?!.* )(?=.*\d).{1,}$/
 };
+
+export const ToastText = {
+  SuccessLogged: 'You are successfully logged in!',
+  ReviewAdded: 'Your review has been successfully added!'
+} as const;

@@ -164,6 +164,8 @@ export const ButtonName = {
 export const Timer = {
   OfferCard: 500,
   FormReview: 2000,
+  Login: 2000,
+  ToastClose: 3000
 } as const;
 
 export const Pattern = {

@@ -4,7 +4,8 @@ import { Offer, Offers } from './offers';
 import { Reviews } from './reviews';
 
 export type UserProcess = {
-  authorizationStatus: AuthorizationStatus
+  authorizationStatus: AuthorizationStatus,
+  isLoginError: boolean
 };
 
 export type AppProcess = {

@@ -1883,6 +1883,11 @@ img {
   margin-bottom: 24px
 }
 
+.login__submit__error {
+  border: solid 2px #ff4a4a;
+  border-radius: 3px
+}
+
 .login__submit {
   width: 100%;
   margin-top: 15px

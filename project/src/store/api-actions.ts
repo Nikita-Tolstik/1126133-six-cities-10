@@ -109,6 +109,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   'user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     await api.get(APIRoute.Login);
+    dispatch(fetchFavoriteListAction());
   },
 );
 
@@ -123,6 +124,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
+    dispatch(fetchFavoriteListAction());
     toast.success(ToastText.SuccessLogged);
   },
 );

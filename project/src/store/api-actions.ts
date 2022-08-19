@@ -5,7 +5,7 @@ import { APIRoute, AppRoute, ToastText } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { OfferId, ReviewData } from '../types/app-data';
 import { AuthData } from '../types/auth-data';
-import { FavoriteOfferData } from '../types/favorite-data';
+import { FavoriteData } from '../types/favorite-data';
 import { Offer, Offers } from '../types/offers';
 import { Reviews } from '../types/reviews';
 import { AppDispatch, State } from '../types/state';
@@ -63,7 +63,7 @@ export const fetchFavoriteListAction = createAsyncThunk<Offers, undefined, {
   },
 );
 
-export const postUserFavoriteAction = createAsyncThunk<Offer, FavoriteOfferData, {
+export const postUserFavoriteAction = createAsyncThunk<Offer, FavoriteData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

@@ -1902,6 +1902,10 @@ img {
   border-bottom: 2px solid rgba(222, 222, 222, .5)
 }
 
+.favorites__section {
+  min-height: 75vh;
+}
+
 .favorites--empty {
   width: 100%;
   padding: 0 0 93px 38px

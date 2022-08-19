@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { AppRoute, LogoutText, Timer } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-import { getFavoriteList } from '../../store/favorite/selectors';
+import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite/selectors';
 import { getLogoutErrorStatus, getLogoutProcessStatus } from '../../store/user-process/selectors';
 import { clearLogoutError } from '../../store/user-process/user-process';
 
@@ -14,9 +14,11 @@ const HeaderUser: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const favoriteList = useAppSelector(getFavoriteList);
+  const isFavoriteLoading = useAppSelector(getFavoriteLoadStatus);
   const isLogoutProcessing = useAppSelector(getLogoutProcessStatus);
   const isLogoutError = useAppSelector(getLogoutErrorStatus);
 
+  const favoriteCount = isFavoriteLoading ? '' : favoriteList.length;
   const signoutText = isLogoutProcessing ? LogoutText.Exiting : LogoutText.SignOut;
 
   const signoutClass = classNames('header__signout', {
@@ -56,7 +58,7 @@ const HeaderUser: React.FC = () => {
 
           <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
 
-          <span className="header__favorite-count">{favoriteList.length}</span>
+          <span className="header__favorite-count">{favoriteCount}</span>
         </Link>
       </li>
 

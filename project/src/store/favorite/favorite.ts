@@ -18,9 +18,15 @@ export const favorite = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchFavoriteListAction.pending, (state) => {
+        state.isDataLoading = true;
+      })
       .addCase(fetchFavoriteListAction.fulfilled, (state, action) => {
         state.isDataLoading = false;
         state.favoriteList = action.payload;
+      })
+      .addCase(fetchFavoriteListAction.rejected, (state) => {
+        state.isDataLoading = false;
       });
 
     builder

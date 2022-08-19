@@ -5,6 +5,7 @@ import { APIRoute, AppRoute, ToastText } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { OfferId, ReviewData } from '../types/app-data';
 import { AuthData } from '../types/auth-data';
+import { FavoriteOfferData } from '../types/favorite-data';
 import { Offer, Offers } from '../types/offers';
 import { Reviews } from '../types/reviews';
 import { AppDispatch, State } from '../types/state';
@@ -50,6 +51,29 @@ export const fetchNearOffersAction = createAsyncThunk<Offers, OfferId, {
   },
 );
 
+export const fetchFavoriteListAction = createAsyncThunk<Offers, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'favorite/fetchFavoriteList',
+  async (_arg, { dispatch, extra: api }) => {
+    const { data } = await api.get<Offers>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const postUserFavoriteAction = createAsyncThunk<Offer, FavoriteOfferData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'favorite/postUserFavorite',
+  async ({ id, status }, { dispatch, extra: api }) => {
+    const { data } = await api.post<Offer>(`${APIRoute.Favorite}/${id}/${status}`);
+    return data;
+  },
+);
 
 export const fetchRewiesAction = createAsyncThunk<Reviews, OfferId, {
   dispatch: AppDispatch,

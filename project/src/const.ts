@@ -14,6 +14,7 @@ export enum APIRoute {
   Logout = '/logout',
   Nearby = 'nearby',
   Comment = '/comments',
+  Favorite = '/favorite'
 }
 
 export enum AuthorizationStatus {
@@ -133,7 +134,8 @@ export const activeCustomIcon = new Icon({
 export enum NameSpace {
   App = 'APP',
   Data = 'DATA',
-  User = 'USER'
+  User = 'USER',
+  Favorite = 'FAVORITE'
 }
 
 export enum SortType {

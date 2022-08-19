@@ -24,6 +24,10 @@ export type AppData = {
   errorMessage: string | null,
 }
 
+export type Favorite = {
+  favoriteList: Offers
+}
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

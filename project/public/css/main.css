@@ -481,6 +481,10 @@ img {
   margin-right: 15px
 }
 
+.header__nav-link__disabled {
+  pointer-events: none;
+}
+
 .header__nav-link {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -514,6 +518,14 @@ img {
 .header__signout,
 .header__user-name {
   padding-top: 2px
+}
+
+.header__signout__error {
+  border: solid #ff4a4a 2px;
+  border-radius: 5px;
+  padding: 5px;
+  color: #ff4a4a;
+  font-weight: 400
 }
 
 .header__favorite-count {

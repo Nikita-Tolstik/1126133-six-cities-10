@@ -167,6 +167,7 @@ export const Timer = {
   OfferCard: 500,
   FormReview: 2000,
   Login: 2000,
+  Logout: 3000,
   ToastClose: 3000
 } as const;
 
@@ -178,4 +179,9 @@ export const Pattern = {
 export const ToastText = {
   SuccessLogged: 'You are successfully logged in!',
   ReviewAdded: 'Your review has been successfully added!'
+} as const;
+
+export const LogoutText = {
+  SignOut: 'Sign out',
+  Exiting: 'Exiting...'
 } as const;

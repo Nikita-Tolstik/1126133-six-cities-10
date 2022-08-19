@@ -5,6 +5,8 @@ import { Reviews } from './reviews';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus,
+  isLogoutProcessing: boolean,
+  isLogoutError: boolean,
   isLoginError: boolean
 };
 
@@ -25,7 +27,8 @@ export type AppData = {
 }
 
 export type Favorite = {
-  favoriteList: Offers
+  favoriteList: Offers,
+  isDataLoading: boolean
 }
 
 export type State = ReturnType<typeof store.getState>;

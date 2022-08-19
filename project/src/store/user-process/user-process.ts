@@ -5,6 +5,8 @@ import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
+  isLogoutProcessing: false,
+  isLogoutError: false,
   isLoginError: false
 };
 
@@ -12,6 +14,9 @@ export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {
+    clearLogoutError: (state) => {
+      state.isLogoutError = false;
+    },
     clearLoginError: (state) => {
       state.isLoginError = false;
     }
@@ -35,10 +40,18 @@ export const userProcess = createSlice({
       });
 
     builder
+      .addCase(logoutAction.pending, (state) => {
+        state.isLogoutProcessing = true;
+      })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.isLogoutProcessing = false;
+      })
+      .addCase(logoutAction.rejected, (state) => {
+        state.isLogoutProcessing = false;
+        state.isLogoutError = true;
       });
   }
 });
 
-export const { clearLoginError } = userProcess.actions;
+export const { clearLogoutError, clearLoginError } = userProcess.actions;

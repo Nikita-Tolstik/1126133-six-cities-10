@@ -1,16 +1,51 @@
-import React, { Fragment, MouseEvent } from 'react';
+import classNames from 'classnames';
+import React, { Fragment, MouseEvent, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { toast } from 'react-toastify';
+import { AppRoute, LogoutText, Timer } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-
+import { getFavoriteList } from '../../store/favorite/selectors';
+import { getLogoutErrorStatus, getLogoutProcessStatus } from '../../store/user-process/selectors';
+import { clearLogoutError } from '../../store/user-process/user-process';
 
 const HeaderUser: React.FC = () => {
+  const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const dispatch = useAppDispatch();
+  const favoriteList = useAppSelector(getFavoriteList);
+  const isLogoutProcessing = useAppSelector(getLogoutProcessStatus);
+  const isLogoutError = useAppSelector(getLogoutErrorStatus);
+
+  const signoutText = isLogoutProcessing ? LogoutText.Exiting : LogoutText.SignOut;
+
+  const signoutClass = classNames('header__signout', {
+    'header__signout__error horizontal-shake': isLogoutError
+  });
+
+  const linkClass = classNames('header__nav-link', {
+    'header__nav-link__disabled': isLogoutError || isLogoutProcessing
+  });
+
+  if (isLogoutError && !timerRef.current) {
+    timerRef.current = setTimeout(() => {
+      dispatch(clearLogoutError());
+      timerRef.current = undefined;
+    }, Timer.Logout);
+  }
+
+  useEffect(
+    () =>
+      () => {
+        if (timerRef.current) {
+          toast.dismiss();
+          dispatch(clearLogoutError());
+          clearTimeout(timerRef.current);
+        }
+      }, [dispatch]);
+
 
   return (
-
     <Fragment>
       <li className="header__nav-item user">
         <Link
@@ -21,7 +56,7 @@ const HeaderUser: React.FC = () => {
 
           <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
 
-          <span className="header__favorite-count">3</span>
+          <span className="header__favorite-count">{favoriteList.length}</span>
         </Link>
       </li>
 
@@ -29,16 +64,19 @@ const HeaderUser: React.FC = () => {
         <a
           onClick={(evt: MouseEvent<HTMLAnchorElement>) => {
             evt.preventDefault();
-            dispatch(logoutAction());
+            toast.dismiss();
+
+            if (!isLogoutError) {
+              dispatch(logoutAction());
+            }
           }}
-          className="header__nav-link" href="/"
+          className={linkClass} href="/"
         >
-          <span className="header__signout">Sign out</span>
+          <span className={signoutClass}>{signoutText}</span>
         </a>
       </li>
     </Fragment>
   );
 };
-
 
 export default HeaderUser;

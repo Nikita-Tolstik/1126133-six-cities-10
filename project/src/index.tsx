@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { favoriteOffers } from './mocks/offers';
 import { store } from './store';
 import { checkAuthAction, fetchOffersListAction } from './store/api-actions';
 import { ToastContainer } from 'react-toastify';
@@ -24,9 +23,7 @@ root.render(
         pauseOnFocusLoss={false}
         autoClose={Timer.ToastClose}
       />
-      <App
-        favoriteOffers={favoriteOffers}
-      />
+      <App />
     </Provider>
   </React.StrictMode>,
 );

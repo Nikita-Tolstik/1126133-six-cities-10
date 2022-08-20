@@ -185,3 +185,8 @@ export const LogoutText = {
   SignOut: 'Sign out',
   Exiting: 'Exiting...'
 } as const;
+
+export const LogoParameter = {
+  Disabled: 'none',
+  Active: 'auto'
+} as const;

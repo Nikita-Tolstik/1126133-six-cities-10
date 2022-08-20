@@ -28,7 +28,7 @@ const HeaderUser: React.FC = () => {
   });
 
   const linkClass = classNames('header__nav-link', {
-    'header__nav-link__disabled': isLogoutError || isLogoutProcessing
+    'link__disabled': isLogoutError || isLogoutProcessing
   });
 
   if (isLogoutError && !timerRef.current) {

@@ -481,7 +481,7 @@ img {
   margin-right: 15px
 }
 
-.header__nav-link__disabled {
+.link__disabled {
   pointer-events: none;
 }
 

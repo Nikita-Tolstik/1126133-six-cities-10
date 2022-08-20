@@ -1,6 +1,7 @@
 import React, { MouseEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AppRoute, City, LogoParameter } from '../../const';
+import classNames from 'classnames';
+import { AppRoute, City } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { setActiveCity } from '../../store/app-process/app-process';
 
@@ -9,7 +10,11 @@ const Logo: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const currentPath = useLocation().pathname;
-  const logoParameter = currentPath === AppRoute.Main ? LogoParameter.Disabled : LogoParameter.Active;
+  const isDisabled = currentPath === AppRoute.Main;
+
+  const linkClass = classNames('header__logo-link', {
+    'link__disabled': isDisabled
+  });
 
   return (
     <Link
@@ -17,8 +22,7 @@ const Logo: React.FC = () => {
         dispatch(setActiveCity(City.Paris));
       }}
       to={AppRoute.Main}
-      className="header__logo-link"
-      style={{ pointerEvents: logoParameter }}
+      className={linkClass}
     >
       <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
     </Link>

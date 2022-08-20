@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { AppRoute, LogoutText, Timer } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
-import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite/selectors';
+import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite-data/selectors';
 import { getLogoutErrorStatus, getLogoutProcessStatus, getUserEmail } from '../../store/user-process/selectors';
 import { clearLogoutError } from '../../store/user-process/user-process';
 

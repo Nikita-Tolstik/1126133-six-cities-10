@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite/selectors';
+import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite-data/selectors';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FavoriteOffers from '../../components/favorite-list/favorite-list';

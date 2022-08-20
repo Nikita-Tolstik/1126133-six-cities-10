@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { PageCardClass } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteList } from '../../store/favorite/selectors';
+import { getFavoriteList } from '../../store/favorite-data/selectors';
 import { getCitiesOffers } from '../../utils/utils';
 import FavoriteCity from '../favorite-city/favorite-city';
 import OffersList from '../offers-list/offers-list';

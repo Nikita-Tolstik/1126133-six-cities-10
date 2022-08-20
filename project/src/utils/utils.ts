@@ -1,9 +1,11 @@
 import { Offers, Offer, Location } from '../types/offers';
 import { City, MapClass, month, SortType } from '../const';
+import { Reviews } from '../types/reviews';
 
 const MULTIPLIER_RATING = 20;
 const FIRST_LETTER = 0;
 const START_INDEX = 1;
+const MAX_COMMENT = 10;
 
 
 const getUniqueCities = (offers: Offers): string[] => {
@@ -95,4 +97,13 @@ export const getSortedOffers = (sortType: SortType, offers: Offers): Offers => {
     case SortType.TopRatedFirst:
       return offersCopy.sort((a, b) => b.rating - a.rating);
   }
+};
+
+
+export const getSortedReviews = (reviews: Reviews): Reviews => {
+  const reviewsCopy = [...reviews];
+  const sortedReviews = reviewsCopy.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  const limitedReviews = sortedReviews.length > MAX_COMMENT ? sortedReviews.slice(0, MAX_COMMENT) : sortedReviews;
+
+  return limitedReviews;
 };

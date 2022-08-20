@@ -9,7 +9,7 @@ import { FavoriteData } from '../types/favorite-data';
 import { Offer, Offers } from '../types/offers';
 import { Reviews } from '../types/reviews';
 import { AppDispatch, State } from '../types/state';
-import { UserData } from '../types/user-data';
+import { UserEmail, UserData } from '../types/user-data';
 import { redirectToRoute } from './action';
 
 
@@ -101,31 +101,35 @@ export const postUserReviewAction = createAsyncThunk<{ data: Reviews, id: number
 );
 
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<UserEmail, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
-    await api.get(APIRoute.Login);
+    const { data: { email } } = await api.get<UserData>(APIRoute.Login);
     dispatch(fetchFavoriteListAction());
+
+    return email;
   },
 );
 
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserEmail, AuthData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
+    const { data: { token, email: emailData } } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
     dispatch(fetchFavoriteListAction());
     toast.success(ToastText.SuccessLogged);
+
+    return emailData;
   },
 );
 

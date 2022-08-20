@@ -6,7 +6,7 @@ import { AppRoute, LogoutText, Timer } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite/selectors';
-import { getLogoutErrorStatus, getLogoutProcessStatus } from '../../store/user-process/selectors';
+import { getLogoutErrorStatus, getLogoutProcessStatus, getUserEmail } from '../../store/user-process/selectors';
 import { clearLogoutError } from '../../store/user-process/user-process';
 
 const HeaderUser: React.FC = () => {
@@ -14,6 +14,8 @@ const HeaderUser: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const favoriteList = useAppSelector(getFavoriteList);
+  const userEmail = useAppSelector(getUserEmail);
+
   const isFavoriteLoading = useAppSelector(getFavoriteLoadStatus);
   const isLogoutProcessing = useAppSelector(getLogoutProcessStatus);
   const isLogoutError = useAppSelector(getLogoutErrorStatus);
@@ -56,7 +58,7 @@ const HeaderUser: React.FC = () => {
         >
           <div className="header__avatar-wrapper user__avatar-wrapper" />
 
-          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+          <span className="header__user-name user__name">{userEmail}</span>
 
           <span className="header__favorite-count">{favoriteCount}</span>
         </Link>

@@ -6,3 +6,5 @@ export type UserData = {
   isPro: boolean;
   token: string;
 }
+
+export type UserEmail = string;

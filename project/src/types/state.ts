@@ -5,6 +5,9 @@ import { Reviews } from './reviews';
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus,
+  userData: {
+    email: string | null
+  },
   isLogoutProcessing: boolean,
   isLogoutError: boolean,
   isLoginError: boolean

@@ -8,7 +8,7 @@ const initialState: Favorite = {
   isDataLoading: true
 };
 
-export const favorite = createSlice({
+export const favoriteData = createSlice({
   name: NameSpace.Favorite,
   initialState,
   reducers: {
@@ -36,4 +36,4 @@ export const favorite = createSlice({
   }
 });
 
-export const { resetFavoriteList } = favorite.actions;
+export const { resetFavoriteList } = favoriteData.actions;

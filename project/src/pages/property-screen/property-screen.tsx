@@ -84,8 +84,9 @@ const PropertyScreen: React.FC = () => {
                 </h1>
 
                 <FavoriteButton
+                  offerId={activeOffer.id}
+                  favoriteStatus={activeOffer.isFavorite}
                   buttonClass={ComponentClass.Property}
-                  isFavorite={activeOffer.isFavorite}
                 />
               </div>
 

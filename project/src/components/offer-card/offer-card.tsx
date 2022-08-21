@@ -64,7 +64,7 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
       />
 
       <div className={`${cardClass}__image-wrapper place-card__image-wrapper`}>
-        <a style={{ pointerEvents: 'none' }} href="/">
+        <a className="link__disabled" href="/">
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -83,10 +83,10 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
           </div>
 
           <FavoriteButton
+            offerId={offer.id}
+            favoriteStatus={offer.isFavorite}
             buttonClass={ComponentClass.OfferCard}
-            isFavorite={offer.isFavorite}
           />
-
         </div>
 
         <RatingBlock
@@ -95,13 +95,9 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
         />
 
         <h2 className="place-card__name">
-
-          <Link
-            to={`${AppRoute.Property}/${offer.id}`}
-          >
+          <Link to={`${AppRoute.Property}/${offer.id}`}>
             {offer.title}
           </Link>
-
         </h2>
         <p className="place-card__type">{offerType}</p>
       </div>

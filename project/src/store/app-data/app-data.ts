@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { AppData } from '../../types/state';
-import { fetchNearOffersAction, fetchOfferAction, fetchOffersListAction, fetchRewiesAction, postUserReviewAction } from '../api-actions';
+import { getInitialOffersList, getNewOffersList } from '../../utils/utils';
+import { fetchNearOffersAction, fetchOfferAction, fetchOffersListAction, fetchRewiesAction, logoutAction, postUserFavoriteAction, postUserReviewAction } from '../api-actions';
 
 const initialState: AppData = {
   offersList: [],
@@ -40,6 +41,9 @@ export const appData = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchOffersListAction.pending, (state) => {
+        state.isOffersListLoading = true;
+      })
       .addCase(fetchOffersListAction.fulfilled, (state, action) => {
         state.offersList = action.payload;
         state.isOffersListLoading = false;
@@ -82,6 +86,24 @@ export const appData = createSlice({
         if (action.error.message) {
           state.errorMessage = action.error.message;
         }
+      });
+
+    builder
+      .addCase(postUserFavoriteAction.fulfilled, (state, action) => {
+        const newOffersList = getNewOffersList(state.offersList, action.payload);
+        state.offersList = newOffersList;
+      });
+
+    builder
+      .addCase(logoutAction.pending, (state) => {
+        state.isOffersListLoading = true;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.isOffersListLoading = false;
+        state.offersList = getInitialOffersList(state.offersList);
+      })
+      .addCase(logoutAction.rejected, (state) => {
+        state.isOffersListLoading = false;
       });
   }
 });

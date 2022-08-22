@@ -107,3 +107,21 @@ export const getSortedReviews = (reviews: Reviews): Reviews => {
 
   return limitedReviews;
 };
+
+
+export const getNewOffersList = (
+  offersList: Offers,
+  updatedOffer: Offer
+): Offers => [...offersList.slice(0, updatedOffer.id - 1), updatedOffer, ...offersList.slice(updatedOffer.id)];
+
+
+export const getInitialOffersList = (offersList: Offers): Offers => {
+  const initialOffersList = offersList.map((favorite) => {
+    if (favorite.isFavorite) {
+      favorite.isFavorite = false;
+    }
+    return favorite;
+  });
+
+  return initialOffersList;
+};

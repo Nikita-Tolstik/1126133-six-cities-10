@@ -1,5 +1,7 @@
 import { Icon } from 'leaflet';
 
+export const TOAST_TYPE = 'success';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -168,7 +170,8 @@ export const Timer = {
   FormReview: 2000,
   Login: 2000,
   Logout: 3000,
-  ToastClose: 3000
+  ToastClose: 3000,
+  Favorite: 2500
 } as const;
 
 export const Pattern = {
@@ -178,10 +181,27 @@ export const Pattern = {
 
 export const ToastText = {
   SuccessLogged: 'You are successfully logged in!',
-  ReviewAdded: 'Your review has been successfully added!'
+  ReviewAdded: 'Review successfully added!'
 } as const;
 
 export const LogoutText = {
   SignOut: 'Sign out',
   Exiting: 'Exiting...'
 } as const;
+
+export const FavoriteAction = {
+  Add: 1,
+  Delete: 0
+} as const;
+
+export const FavoriteActionInfo = {
+  Add: 'Successfully added to favorite!',
+  Removed: 'Successfully removed from favorite!',
+  Loading: 'Please wait...',
+} as const;
+
+export const RequestStatus = {
+  Fulfilled: 'fulfilled',
+  Rejected: 'rejected'
+} as const;
+

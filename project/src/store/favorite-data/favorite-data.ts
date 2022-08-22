@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchFavoriteListAction, logoutAction } from '../api-actions';
+import { fetchFavoriteListAction, logoutAction, postUserFavoriteAction } from '../api-actions';
 import { NameSpace } from '../../const';
 import { Favorite } from '../../types/state';
 
@@ -27,6 +27,19 @@ export const favoriteData = createSlice({
       })
       .addCase(fetchFavoriteListAction.rejected, (state) => {
         state.isDataLoading = false;
+      });
+
+    builder
+      .addCase(postUserFavoriteAction.fulfilled, (state, action) => {
+        const favoriteOffer = state.favoriteList.find((favorite) => favorite.id === action.payload.id);
+
+        if (favoriteOffer) {
+          const newFavoriteList = state.favoriteList.filter((favorite) => favorite.id !== action.payload.id);
+
+          state.favoriteList = newFavoriteList;
+        } else {
+          state.favoriteList.push(action.payload);
+        }
       });
 
     builder

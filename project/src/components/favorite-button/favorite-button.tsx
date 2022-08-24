@@ -18,6 +18,9 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ offerId, favoriteStatus
   const [isFavorite, setIsFavorite] = useState<boolean>(favoriteStatus);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const toastIdRef = useRef<number | string | null>(null);
+  const timerIdRef = useRef<NodeJS.Timeout | undefined>(undefined);
+
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
@@ -31,20 +34,11 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ offerId, favoriteStatus
     [`${buttonClass}__bookmark-button--active`]: isFavorite
   });
 
-  const toastId = useRef<number | string | null>(null);
-  const timerId = useRef<NodeJS.Timeout | undefined>(undefined);
-
-  const handleClick = async (evt: MouseEvent<HTMLButtonElement>) => {
-
-    if (isNoAuthorized) {
-      dispatch(redirectToRoute(AppRoute.Login));
-      return;
-    }
-
+  const onClick = async () => {
     toast.dismiss();
     setIsLoading(true);
 
-    toastId.current = toast.loading(FavoriteActionInfo.Loading);
+    toastIdRef.current = toast.loading(FavoriteActionInfo.Loading);
 
     const responseData = await dispatch(postUserFavoriteAction({
       id: offerId,
@@ -53,30 +47,37 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ offerId, favoriteStatus
 
     if (responseData.meta.requestStatus === RequestStatus.Fulfilled) {
       setIsFavorite((prevState) => !prevState);
-      toast.update(toastId.current, {
+      toast.update(toastIdRef.current, {
         render: actionTypeInfo,
         type: TOAST_TYPE,
         isLoading: false,
         autoClose: Timer.ToastClose
       });
     } else {
-      toast.dismiss(toastId.current);
+      toast.dismiss(toastIdRef.current);
     }
 
-    timerId.current = setTimeout(() => {
+    timerIdRef.current = setTimeout(() => {
       setIsLoading(false);
-      timerId.current = undefined;
+      timerIdRef.current = undefined;
     }, Timer.Favorite);
+  };
+
+  const handleClick = (evt: MouseEvent<HTMLButtonElement>) => {
+
+    if (isNoAuthorized) {
+      dispatch(redirectToRoute(AppRoute.Login));
+      return;
+    }
+
+    onClick();
   };
 
   useEffect(
     () =>
       () => {
-        if (toastId.current && toast.isActive(toastId.current)) {
-          toast.dismiss(toastId.current);
-        }
-        if (timerId.current) {
-          clearTimeout(timerId.current);
+        if (timerIdRef.current) {
+          clearTimeout(timerIdRef.current);
         }
       }, []);
 
@@ -101,4 +102,3 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ offerId, favoriteStatus
 };
 
 export default FavoriteButton;
-

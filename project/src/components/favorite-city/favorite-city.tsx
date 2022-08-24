@@ -1,7 +1,7 @@
 import React from 'react';
 
 type FavoriteCityProps = {
-  city: string;
+  city: string
 }
 
 

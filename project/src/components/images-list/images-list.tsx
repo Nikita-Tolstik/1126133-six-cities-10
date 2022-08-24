@@ -1,4 +1,5 @@
 import React from 'react';
+import { ImageLimit } from '../../const';
 import PropertyImage from '../property-image/property-image';
 
 type ImagesListProps = {
@@ -6,7 +7,7 @@ type ImagesListProps = {
 }
 
 const ImagesList: React.FC<ImagesListProps> = ({ imagesList }) => {
-  const imagesLimitCount = imagesList.slice(0, 6);
+  const imagesLimitCount = imagesList.slice(ImageLimit.Start, ImageLimit.End);
   return (
     <div className="property__gallery">
       {imagesLimitCount.map((src) => <PropertyImage key={src} src={src} />)}

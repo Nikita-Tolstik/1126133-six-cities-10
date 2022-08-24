@@ -15,14 +15,14 @@ export type OfferListData = {
 export type OfferData = {
   offer: Offer | null,
   isOfferDataLoading: boolean,
-  nearOffers: Offers,
+  nearOffers: Offers
 }
 
 export type ReviewData = {
   reviews: Reviews,
   isReviewSending: boolean,
   isReviewSendSuccess: boolean,
-  errorMessage: string | null,
+  errorMessage: string | null
 }
 
 export type FavoriteData = {

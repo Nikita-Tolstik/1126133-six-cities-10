@@ -10,8 +10,8 @@ export type FavoriteData = {
 }
 
 export type AuthData = {
-  login: string;
-  password: string;
+  login: string,
+  password: string
 }
 
 export type ReviewData = {
@@ -21,12 +21,12 @@ export type ReviewData = {
 }
 
 export type UserData = {
-  id: number;
-  email: string;
-  name: string;
-  avatarUrl: string;
-  isPro: boolean;
-  token: string;
+  id: number,
+  email: string,
+  name: string,
+  avatarUrl: string,
+  isPro: boolean,
+  token: string
 }
 
 export type ReviewResponseData = {

@@ -12,6 +12,7 @@ type PropertyReviewsProps = {
   reviews: Reviews
 }
 
+
 const PropertyReviews: React.FC<PropertyReviewsProps> = ({ offerId, reviews }) => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isShowForm = authorizationStatus === AuthorizationStatus.Auth;

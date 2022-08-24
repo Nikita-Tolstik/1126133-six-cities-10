@@ -9,9 +9,9 @@ import RatingBlock from '../rating-block/rating-block';
 import PremiumMark from '../premium-mark/premium-mark';
 
 type OfferCardProps = {
-  offer: Offer;
-  cardClass: PageCardClass;
-  onActiveCard?: (value: number | null) => void;
+  offer: Offer,
+  cardClass: PageCardClass,
+  onActiveCard?: (value: number | null) => void
 };
 
 

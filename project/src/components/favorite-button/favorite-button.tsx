@@ -8,8 +8,8 @@ import { postUserFavoriteAction } from '../../store/api-actions';
 import { toast } from 'react-toastify';
 
 type FavoriteButtonProps = {
-  offerId: number;
-  favoriteStatus: boolean;
+  offerId: number,
+  favoriteStatus: boolean,
   buttonClass: ComponentClass,
 }
 

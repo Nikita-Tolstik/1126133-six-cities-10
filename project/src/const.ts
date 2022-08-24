@@ -219,3 +219,8 @@ export const ValidationMessage = {
     Title: 'Password must contain Letters and Numbers. Min 2 chatacters. No Spaces.',
   }
 } as const;
+
+export const ImageLimit = {
+  Start: 0,
+  End: 6
+} as const;

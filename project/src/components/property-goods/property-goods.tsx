@@ -1,8 +1,7 @@
 import React from 'react';
 
-
 type PropertyGoodsProps = {
-  goods: string[];
+  goods: string[]
 }
 
 
@@ -16,12 +15,10 @@ const PropertyGoods: React.FC<PropertyGoodsProps> = ({ goods }) => (
           className="property__inside-item"
         >
           {good}
-        </li>
-      )
+        </li>)
       )}
     </ul>
   </div>
 );
-
 
 export default PropertyGoods;

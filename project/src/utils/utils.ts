@@ -128,4 +128,3 @@ export const getInitialOffersList = (offersList: Offers): Offers => {
 
 
 export const getRandomCity = (): City => cityTitle[Math.floor(Math.random() * cityTitle.length)];
-

@@ -3,7 +3,7 @@ import { Reviews } from '../../types/reviews';
 import UserReview from '../user-review/user-review';
 
 type ReviewsListProps = {
-  reviews: Reviews;
+  reviews: Reviews
 }
 
 

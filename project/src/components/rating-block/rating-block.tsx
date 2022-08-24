@@ -4,8 +4,9 @@ import { getCountStars } from '../../utils/utils';
 
 type RatingBlockProps = {
   rating: number,
-  componentClass: ComponentClass,
+  componentClass: ComponentClass
 }
+
 
 const RatingBlock: React.FC<RatingBlockProps> = ({ rating, componentClass }) => {
   const starsCount = getCountStars(rating);

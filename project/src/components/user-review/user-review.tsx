@@ -5,7 +5,7 @@ import { getFormatDate } from '../../utils/utils';
 import RatingBlock from '../rating-block/rating-block';
 
 type UserReviewProps = {
-  review: Review;
+  review: Review
 }
 
 const UserReview: React.FC<UserReviewProps> = ({ review }) => {

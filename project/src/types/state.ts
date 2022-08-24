@@ -29,9 +29,9 @@ export type AppData = {
   errorMessage: string | null,
 }
 
-export type Favorite = {
+export type FavoriteData = {
   favoriteList: Offers,
-  isDataLoading: boolean
+  isFavoriteListLoading: boolean
 }
 
 export type State = ReturnType<typeof store.getState>;

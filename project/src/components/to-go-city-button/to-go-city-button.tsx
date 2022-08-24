@@ -1,14 +1,14 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, City } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { setActiveCity } from '../../store/app-process/app-process';
 import { getRandomCity } from '../../utils/utils';
 
 
 const ToGoCityButton: React.FC = () => {
+  const city = useRef<City>(getRandomCity()).current;
   const dispatch = useAppDispatch();
-  const city = getRandomCity();
 
 
   return (

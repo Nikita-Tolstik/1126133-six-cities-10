@@ -1,7 +1,8 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useAppSelector } from '../../hooks';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite-data/selectors';
+import { fetchFavoriteListAction } from '../../store/api-actions';
+import classNames from 'classnames';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FavoriteList from '../../components/favorite-list/favorite-list';
@@ -10,8 +11,19 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 
 const FavoriteScreen: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const promise = dispatch(fetchFavoriteListAction());
+
+    return () => {
+      promise.abort();
+    };
+  }, [dispatch]);
+
   const isDataLoading = useAppSelector(getFavoriteLoadStatus);
   const favoriteList = useAppSelector(getFavoriteList);
+
   const IsEmptyFavoriteOffers = !favoriteList.length;
 
   const divClass = classNames('page', {
@@ -30,6 +42,7 @@ const FavoriteScreen: React.FC = () => {
     return <LoadingScreen />;
   }
 
+
   return (
     <div className={divClass}>
       <Header />
@@ -46,6 +59,5 @@ const FavoriteScreen: React.FC = () => {
     </div>
   );
 };
-
 
 export default FavoriteScreen;

@@ -101,15 +101,18 @@ export const postUserReviewAction = createAsyncThunk<{ data: Reviews, id: number
 );
 
 
-export const checkAuthAction = createAsyncThunk<UserEmail, undefined, {
+export const checkAuthAction = createAsyncThunk<UserEmail, boolean, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'user/checkAuth',
-  async (_arg, { dispatch, extra: api }) => {
+  async (isFavoritePath, { dispatch, extra: api }) => {
     const { data: { email } } = await api.get<UserData>(APIRoute.Login);
-    dispatch(fetchFavoriteListAction());
+
+    if (!isFavoritePath) {
+      dispatch(fetchFavoriteListAction());
+    }
 
     return email;
   },

@@ -112,7 +112,7 @@ export enum City {
   Dusseldorf = 'Dusseldorf'
 }
 
-export const city = [
+export const cityTitle = [
   City.Paris,
   City.Cologne,
   City.Brussels,

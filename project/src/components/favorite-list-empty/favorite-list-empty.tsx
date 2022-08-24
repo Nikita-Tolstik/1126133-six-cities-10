@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 
-const FavoriteOffersEmpty: React.FC = () => (
+const FavoriteListEmpty: React.FC = () => (
   <Fragment>
     <h1 className="visually-hidden">Favorites (empty)</h1>
     <div className="favorites__status-wrapper">
@@ -11,4 +11,4 @@ const FavoriteOffersEmpty: React.FC = () => (
   </Fragment>
 );
 
-export default FavoriteOffersEmpty;
+export default FavoriteListEmpty;

@@ -4,8 +4,8 @@ import { useAppSelector } from '../../hooks';
 import { getFavoriteList, getFavoriteLoadStatus } from '../../store/favorite-data/selectors';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import FavoriteOffers from '../../components/favorite-list/favorite-list';
-import FavoriteOffersEmpty from '../../components/favorite-offers-empty/favorite-offers-empty';
+import FavoriteList from '../../components/favorite-list/favorite-list';
+import FavoriteListEmpty from '../../components/favorite-list-empty/favorite-list-empty';
 import LoadingScreen from '../loading-screen/loading-screen';
 
 
@@ -37,7 +37,7 @@ const FavoriteScreen: React.FC = () => {
         <div className="page__favorites-container container">
           <section className={sectionClass}>
 
-            {IsEmptyFavoriteOffers ? <FavoriteOffersEmpty /> : <FavoriteOffers />}
+            {IsEmptyFavoriteOffers ? <FavoriteListEmpty /> : <FavoriteList />}
 
           </section>
         </div>

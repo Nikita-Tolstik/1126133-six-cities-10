@@ -7,7 +7,7 @@ import FavoriteCity from '../favorite-city/favorite-city';
 import OffersList from '../offers-list/offers-list';
 
 
-const FavoriteOffers: React.FC = () => {
+const FavoriteList: React.FC = () => {
   const favoriteList = useAppSelector(getFavoriteList);
   const citiesOffers = getCitiesOffers(favoriteList);
 
@@ -39,4 +39,4 @@ const FavoriteOffers: React.FC = () => {
   );
 };
 
-export default FavoriteOffers;
+export default FavoriteList;

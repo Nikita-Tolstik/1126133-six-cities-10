@@ -1,15 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
+import { Reviews } from '../types/reviews';
+import { Offer, Offers } from '../types/offers';
+import { UserEmail, UserData, FavoriteData, AuthData, OfferId, ReviewData } from '../types/server-data';
 import { APIRoute, AppRoute, ToastText } from '../const';
 import { dropToken, saveToken } from '../services/token';
-import { OfferId, ReviewData } from '../types/app-data';
-import { AuthData } from '../types/auth-data';
-import { FavoriteData } from '../types/favorite-data';
-import { Offer, Offers } from '../types/offers';
-import { Reviews } from '../types/reviews';
 import { AppDispatch, State } from '../types/state';
-import { UserEmail, UserData } from '../types/user-data';
 import { redirectToRoute } from './action';
 
 

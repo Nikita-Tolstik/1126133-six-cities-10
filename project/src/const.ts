@@ -205,3 +205,15 @@ export const RequestStatus = {
   Rejected: 'rejected'
 } as const;
 
+export const ValidationMessage = {
+  Email: {
+    Required: 'Must be E-mail (e.g. name@example.com)',
+    Pattern: 'Enter valid E-mail (e.g. name@example.com)',
+    Title: 'Must be E-mail (e.g. name@example.com)',
+  },
+  Password: {
+    Required: 'Must be entered Password',
+    Pattern: 'Password must contain Letters and Numbers. Min 2 chatacters. No Spaces.',
+    Title: 'Password must contain Letters and Numbers. Min 2 chatacters. No Spaces.',
+  }
+} as const;

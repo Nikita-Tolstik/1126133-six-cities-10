@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { ButtonName, Pattern, Timer } from '../../const';
+import { ButtonName, Pattern, Timer, ValidationMessage } from '../../const';
 import { getLoginErrorStatus } from '../../store/user-process/selectors';
 import { clearLoginError } from '../../store/user-process/user-process';
 import { toast } from 'react-toastify';
@@ -93,16 +93,16 @@ const AuthScreen: React.FC = () => {
                 <label className="visually-hidden">E-mail</label>
                 <input
                   {...register('email', {
-                    required: 'Must be E-mail (e.g. name@example.com)',
+                    required: ValidationMessage.Email.Required,
                     pattern: {
                       value: Pattern.Email,
-                      message: 'Enter valid E-mail (e.g. name@example.com)'
+                      message: ValidationMessage.Email.Pattern
                     }
                   })}
                   className={emailInputClass}
                   type="email"
                   placeholder="Email"
-                  title="Must be E-mail (e.g. name@example.com)"
+                  title={ValidationMessage.Email.Title}
                   disabled={isSubmitting}
                 />
                 {errors?.email && <ErrorMessage isLoginMessage errorMessage={errors.email?.message} />}
@@ -112,16 +112,16 @@ const AuthScreen: React.FC = () => {
                 <label className="visually-hidden">Password</label>
                 <input
                   {...register('password', {
-                    required: 'Must be entered Password',
+                    required: ValidationMessage.Password.Required,
                     pattern: {
                       value: Pattern.Password,
-                      message: 'Password must contain Letters and Numbers. Min 2 chatacters. No Spaces.'
+                      message: ValidationMessage.Password.Pattern
                     }
                   })}
                   className={passwordInputClass}
                   type="password"
                   placeholder="Password"
-                  title="Password must contain Letters and Numbers. Min 2 chatacters. No Spaces."
+                  title={ValidationMessage.Password.Title}
                   disabled={isSubmitting}
                 />
                 {errors?.password && <ErrorMessage isLoginMessage errorMessage={errors.password?.message} />}

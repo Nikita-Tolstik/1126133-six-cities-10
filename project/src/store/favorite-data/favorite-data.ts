@@ -20,6 +20,7 @@ export const favoriteData = createSlice({
     builder
       .addCase(fetchFavoriteListAction.pending, (state) => {
         state.isDataLoading = true;
+        state.favoriteList = [];
       })
       .addCase(fetchFavoriteListAction.fulfilled, (state, action) => {
         state.isDataLoading = false;

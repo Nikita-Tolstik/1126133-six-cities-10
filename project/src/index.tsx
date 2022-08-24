@@ -18,14 +18,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ToastContainer
-        newestOnTop
-        pauseOnFocusLoss={false}
-        autoClose={Timer.ToastClose}
-      />
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ToastContainer
+      newestOnTop
+      pauseOnFocusLoss={false}
+      autoClose={Timer.ToastClose}
+    />
+    <App />
+  </Provider>
 );

@@ -1,5 +1,5 @@
 import { Offers, Offer, Location } from '../types/offers';
-import { City, MapClass, month, SortType } from '../const';
+import { City, MapClass, month, SortType, cityTitle } from '../const';
 import { Reviews } from '../types/reviews';
 
 const MULTIPLIER_RATING = 20;
@@ -125,3 +125,7 @@ export const getInitialOffersList = (offersList: Offers): Offers => {
 
   return initialOffersList;
 };
+
+
+export const getRandomCity = (): City => cityTitle[Math.floor(Math.random() * cityTitle.length)];
+

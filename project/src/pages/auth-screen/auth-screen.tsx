@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import classNames from 'classnames';
 import ErrorMessage from '../../components/error-message/error-message';
 import Header from '../../components/header/header';
+import ToGoCityButton from '../../components/to-go-city-button/to-go-city-button';
 
 type FormData = {
   email: string,
@@ -134,15 +135,9 @@ const AuthScreen: React.FC = () => {
                 {buttonName}
               </button>
             </form>
+          </section>
 
-          </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
-              </a>
-            </div>
-          </section>
+          <ToGoCityButton />
         </div>
       </main>
     </div>

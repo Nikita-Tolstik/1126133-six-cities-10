@@ -135,9 +135,11 @@ export const activeCustomIcon = new Icon({
 
 export enum NameSpace {
   App = 'APP',
-  Data = 'DATA',
+  OfferList = 'OFFER_LIST',
+  Offer = 'OFFER',
+  Review = 'REVIEW',
+  Favorite = 'FAVORITE',
   User = 'USER',
-  Favorite = 'FAVORITE'
 }
 
 export enum SortType {

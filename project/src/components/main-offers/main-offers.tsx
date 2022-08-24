@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { MapClass, PageCardClass, SortType } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { filterActiveCityOffers } from '../../store/app-data/selectors';
+import { filterActiveCityOffers } from '../../store/offer-list-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
 import { getSortedOffers } from '../../utils/utils';
 import Map from '../map/map';

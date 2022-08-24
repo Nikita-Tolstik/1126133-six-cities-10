@@ -2,8 +2,8 @@ import React, { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'rea
 import { ButtonName, TextLength, Timer, ToastText } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postUserReviewAction } from '../../store/api-actions';
-import { clearErrorMessage, resetReviewSendSuccessStatus } from '../../store/app-data/app-data';
-import { getErrorMessage, getReviewSendStatus, getReviewSendSuccessStatus } from '../../store/app-data/selectors';
+import { clearErrorMessage, resetReviewSendSuccessStatus } from '../../store/review-data/review-data';
+import { getErrorMessage, getReviewSendStatus, getReviewSendSuccessStatus } from '../../store/review-data/selectors';
 import { ReviewData } from '../../types/server-data';
 import { CommentForm } from '../../types/reviews';
 import { toast } from 'react-toastify';

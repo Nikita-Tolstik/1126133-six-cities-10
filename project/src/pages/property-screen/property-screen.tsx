@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ComponentClass, PageCardClass, MapClass } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getOfferDataLoadStatus, getOffer, getNearOffers, getReviews } from '../../store/app-data/selectors';
 import { getActiveCity } from '../../store/app-process/selectors';
+import { getOfferDataLoadStatus, getOffer, getNearOffers } from '../../store/offer-data/selectors';
+import { getReviews } from '../../store/review-data/selectors';
+import { clearOfferData, setOfferDataLoadStatus } from '../../store/offer-data/offer-data';
+import { clearReviewData } from '../../store/review-data/review-data';
 import { fetchNearOffersAction, fetchOfferAction, fetchRewiesAction } from '../../store/api-actions';
-import { clearOfferPageData, setOfferDataLoadStatus } from '../../store/app-data/app-data';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import PropertyGoods from '../../components/property-goods/property-goods';
@@ -38,7 +40,9 @@ const PropertyScreen: React.FC = () => {
       promiseOffer.abort();
       promiseNearOffers.abort();
       promiseReviews.abort();
-      dispatch(clearOfferPageData());
+
+      dispatch(clearOfferData());
+      dispatch(clearReviewData());
     };
   }, [id, dispatch]);
 

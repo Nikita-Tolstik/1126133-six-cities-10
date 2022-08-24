@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks';
-import { getOffersListLoadStatus, getIsEmptyOffers } from '../../store/app-data/selectors';
+import { getOffersListLoadStatus, getIsEmptyOffers } from '../../store/offer-list-data/selectors';
 import Header from '../../components/header/header';
 import CitiesTabs from '../../components/cities-tabs/cities-tabs';
 import MainOffers from '../../components/main-offers/main-offers';

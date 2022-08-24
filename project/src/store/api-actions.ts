@@ -3,10 +3,10 @@ import { AxiosInstance } from 'axios';
 import { toast } from 'react-toastify';
 import { Reviews } from '../types/reviews';
 import { Offer, Offers } from '../types/offers';
-import { UserEmail, UserData, FavoriteData, AuthData, OfferId, ReviewData } from '../types/server-data';
+import { AppDispatch, State } from '../types/state';
+import { UserEmail, UserData, FavoriteData, AuthData, OfferId, ReviewData, ReviewResponseData } from '../types/server-data';
 import { APIRoute, AppRoute, ToastText } from '../const';
 import { dropToken, saveToken } from '../services/token';
-import { AppDispatch, State } from '../types/state';
 import { redirectToRoute } from './action';
 
 
@@ -85,15 +85,17 @@ export const fetchRewiesAction = createAsyncThunk<Reviews, OfferId, {
 );
 
 
-export const postUserReviewAction = createAsyncThunk<{ data: Reviews, id: number }, ReviewData, {
+export const postUserReviewAction = createAsyncThunk<ReviewResponseData, ReviewData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'data/postUserReview',
-  async ({ id, rating, comment }, { dispatch, extra: api }) => {
+  async ({ id, rating, comment }, { dispatch, extra: api, getState }) => {
     const { data } = await api.post<Reviews>(`${APIRoute.Comment}/${id}`, { rating, comment });
-    return ({ data, id });
+    const activeOfferId = getState().OFFER.offer?.id;
+
+    return ({ data, id, activeOfferId });
   }
 );
 

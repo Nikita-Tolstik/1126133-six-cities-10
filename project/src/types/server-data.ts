@@ -1,3 +1,5 @@
+import { Reviews } from './reviews';
+
 export type UserEmail = string;
 
 export type OfferId = string | undefined;
@@ -25,4 +27,10 @@ export type UserData = {
   avatarUrl: string;
   isPro: boolean;
   token: string;
+}
+
+export type ReviewResponseData = {
+  data: Reviews,
+  id: number,
+  activeOfferId: number | undefined
 }

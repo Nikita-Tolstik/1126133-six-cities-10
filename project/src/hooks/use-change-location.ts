@@ -8,7 +8,7 @@ const useChangeLocation = (
   prevActiveCityRef: MutableRefObject<City>,
   prevMarkersRef: MutableRefObject<Marker[]>,
   activeCity: City,
-  activeCityLocation: Location,
+  activeLocation: Location,
   map: Map | null
 ): void => {
 
@@ -22,13 +22,13 @@ const useChangeLocation = (
 
       map.setView(
         {
-          lat: activeCityLocation.latitude,
-          lng: activeCityLocation.longitude
+          lat: activeLocation.latitude,
+          lng: activeLocation.longitude
         },
-        activeCityLocation.zoom
+        activeLocation.zoom
       );
     }
-  }, [prevActiveCityRef, prevMarkersRef, activeCity, activeCityLocation, map]);
+  }, [prevActiveCityRef, prevMarkersRef, activeCity, activeLocation, map]);
 };
 
 export default useChangeLocation;

@@ -1,34 +1,37 @@
 import React, { useEffect, useRef } from 'react';
+import classNames from 'classnames';
 import { Offer } from '../../types/offers';
-import { getCountStars, capitalizeFirstLetter } from '../../utils/utils';
-import { PageCardClass, ButtonClass, ImageSize, AppRoute } from '../../const';
+import { capitalizeFirstLetter } from '../../utils/utils';
+import { PageCardClass, ComponentClass, ImageSize, AppRoute, Timer } from '../../const';
 import { Link } from 'react-router-dom';
-import BookmarkButton from '../bookmark-button/bookmark-button';
-
+import FavoriteButton from '../favorite-button/favorite-button';
+import RatingBlock from '../rating-block/rating-block';
+import PremiumMark from '../premium-mark/premium-mark';
 
 type OfferCardProps = {
-  offer: Offer;
-  cardClass: PageCardClass;
-  onActiveCard?: (value: number | null) => void;
+  offer: Offer,
+  cardClass: PageCardClass,
+  onActiveCard?: (value: number | null) => void
 };
-
-const TIMER = 500;
 
 
 const OfferCard: React.FC<OfferCardProps> = (props) => {
   const { offer, cardClass, onActiveCard } = props;
 
-  const countStars = getCountStars(offer.rating);
   const offerType = capitalizeFirstLetter(offer.type);
 
   const isFavoriteStyle = cardClass === PageCardClass.Favorite;
   const imageSize = isFavoriteStyle ? ImageSize.Small : ImageSize.Big;
 
+  const cardInfoClass = classNames('place-card__info', {
+    'favorites__card-info': isFavoriteStyle
+  });
+
   const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const handleActiveCard = () => {
     if (onActiveCard !== undefined) {
-      timerRef.current = setTimeout(() => onActiveCard(offer.id), TIMER);
+      timerRef.current = setTimeout(() => onActiveCard(offer.id), Timer.OfferCard);
     }
   };
 
@@ -36,13 +39,17 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
     if (onActiveCard !== undefined) {
       onActiveCard(null);
       clearTimeout(timerRef.current);
+      timerRef.current = undefined;
     }
   };
 
   useEffect(
     () =>
-      () =>
-        clearTimeout(timerRef.current), []);
+      () => {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+      }, []);
 
   return (
     <article
@@ -51,15 +58,13 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
       className={`${cardClass}__card place-card`}
     >
 
-      <div
-        className="place-card__mark"
-        hidden={!offer.isPremium}
-      >
-        <span>Premium</span>
-      </div>
+      <PremiumMark
+        isPremium={offer.isPremium}
+        componentClass={ComponentClass.OfferCard}
+      />
 
       <div className={`${cardClass}__image-wrapper place-card__image-wrapper`}>
-        <a style={{ pointerEvents: 'none' }} href="/">
+        <a className="link__disabled" href="/">
           <img
             className="place-card__image"
             src={offer.previewImage}
@@ -70,38 +75,29 @@ const OfferCard: React.FC<OfferCardProps> = (props) => {
         </a>
       </div>
 
-      <div
-        className={`place-card__info ${isFavoriteStyle ? 'favorites__card-info' : ''}`}
-      >
+      <div className={cardInfoClass}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}&nbsp;</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
-          <BookmarkButton
-            buttonClass={ButtonClass.OfferCard}
-            isFavorite={offer.isFavorite}
+          <FavoriteButton
+            offerId={offer.id}
+            favoriteStatus={offer.isFavorite}
+            buttonClass={ComponentClass.OfferCard}
           />
-
         </div>
 
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
+        <RatingBlock
+          rating={offer.rating}
+          componentClass={ComponentClass.OfferCard}
+        />
 
-            <span style={{ width: countStars }} />
-
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
         <h2 className="place-card__name">
-
-          <Link
-            to={`${AppRoute.Property}/${offer.id}`}
-          >
+          <Link to={`${AppRoute.Property}/${offer.id}`}>
             {offer.title}
           </Link>
-
         </h2>
         <p className="place-card__type">{offerType}</p>
       </div>

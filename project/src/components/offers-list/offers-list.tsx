@@ -5,9 +5,9 @@ import OfferCard from '../offer-card/offer-card';
 
 
 type OffersListProps = {
-  offers: Offers;
-  cardClass: PageCardClass;
-  onActiveCard?: (value: number | null) => void;
+  offers: Offers,
+  cardClass: PageCardClass,
+  onActiveCard?: (value: number | null) => void
 };
 
 

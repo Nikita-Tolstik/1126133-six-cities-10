@@ -1,8 +1,7 @@
 import React from 'react';
 
-
 type PropertyImageProps = {
-  src: string;
+  src: string
 }
 
 
@@ -15,6 +14,5 @@ const PropertyImage: React.FC<PropertyImageProps> = ({ src }) => (
     />
   </div>
 );
-
 
 export default PropertyImage;

@@ -1,51 +1,44 @@
 import React from 'react';
-import { PageCardClass } from '../../const';
+import classNames from 'classnames';
 import { useAppSelector } from '../../hooks';
+import { getOffersListLoadStatus, getIsEmptyOffers } from '../../store/offer-list-data/selectors';
 import Header from '../../components/header/header';
 import CitiesTabs from '../../components/cities-tabs/cities-tabs';
 import MainOffers from '../../components/main-offers/main-offers';
 import MainOffersEmpty from '../../components/main-offers-empty/main-offers-empty';
-import { filterActiveCityOffers } from '../../store/app-data/selectors';
-import { getActiveCity } from '../../store/app-process/selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
 const MainScreen: React.FC = () => {
+  const isEmptyOffers = useAppSelector(getIsEmptyOffers);
+  const isDataLoading = useAppSelector(getOffersListLoadStatus);
 
-  const activeCity = useAppSelector(getActiveCity);
-  const activeCityOffers = useAppSelector(filterActiveCityOffers);
+  const mainClass = classNames('page__main page__main--index', {
+    'page__main--index-empty': isEmptyOffers
+  });
 
-  const offersCount = activeCityOffers.length;
-  const isEmptyOffers = !offersCount;
+  if (isDataLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page page--gray page--main">
-
       <Header />
 
-      <main
-        className={`page__main page__main--index ${isEmptyOffers ? 'page__main--index-empty' : ''}`}
-      >
+      <main className={mainClass}>
         <h1 className="visually-hidden">Cities</h1>
-
         <div className="tabs">
           <section className="locations container">
-
-            <CitiesTabs activeCity={activeCity} />
-
+            <CitiesTabs />
           </section>
         </div>
 
         <div className="cities">
-
-          {isEmptyOffers
-            ? <MainOffersEmpty activeCity={activeCity} />
-            : <MainOffers offersCount={offersCount} activeCityOffers={activeCityOffers} cardClass={PageCardClass.Main} activeCity={activeCity} />}
-
+          {isEmptyOffers ? <MainOffersEmpty /> : <MainOffers />}
         </div>
       </main>
     </div>
   );
 };
-
 
 export default MainScreen;

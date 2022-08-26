@@ -1,39 +1,45 @@
 import React, { MouseEvent } from 'react';
-import { City, city } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import classNames from 'classnames';
+import { cityTitle } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveCity } from '../../store/app-process/app-process';
+import { getActiveCity } from '../../store/app-process/selectors';
 
 
-type CitiesTabsProps = {
-  activeCity: City;
-}
-
-
-const CitiesTabs: React.FC<CitiesTabsProps> = ({ activeCity }) => {
+const CitiesTabs: React.FC = () => {
+  const activeCity = useAppSelector(getActiveCity);
   const dispatch = useAppDispatch();
 
   return (
     <ul className="locations__list tabs__list">
-      {city.map((cityName) => (
-        <li
-          key={cityName}
-          className="locations__item"
-        >
-          <a
-            onClick={(evt: MouseEvent<HTMLAnchorElement>) => {
-              evt.preventDefault();
-              dispatch(setActiveCity(cityName));
-            }}
-            className={`locations__item-link tabs__item ${activeCity === cityName ? 'tabs__item--active' : ''}`}
-            href="/"
+      {cityTitle.map((cityName) => {
+        const isActive = activeCity === cityName;
+
+        const linkClass = classNames('locations__item-link tabs__item', {
+          'tabs__item--active': isActive
+        });
+
+        return (
+          <li
+            key={cityName}
+            className="locations__item"
           >
-            <span>{cityName}</span>
-          </a>
-        </li>)
+            <a
+              onClick={(evt: MouseEvent<HTMLAnchorElement>) => {
+                evt.preventDefault();
+                dispatch(setActiveCity(cityName));
+              }}
+              className={linkClass}
+              href="/"
+            >
+              <span>{cityName}</span>
+            </a>
+          </li>
+        );
+      }
       )}
     </ul>
   );
 };
-
 
 export default CitiesTabs;

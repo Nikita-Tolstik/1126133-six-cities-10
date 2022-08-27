@@ -68,8 +68,8 @@ export const getLocation = (city: City, offers: Offers, mapClass: MapClass): Loc
 
 
 export const getCitiesOffers = (offers: Offers): [string, Offer[]][] => {
-  const сities = getUniqueCities(offers);
-  const sortedCities = сities.sort();
+  const cities = getUniqueCities(offers);
+  const sortedCities = cities.sort();
   const cityOffersMap = new Map();
 
   sortedCities.forEach((city) => {

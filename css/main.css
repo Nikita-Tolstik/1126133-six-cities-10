@@ -597,7 +597,8 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding-right: 0
+  padding-right: 0;
+  width: 1281px;
 }
 
 .cities__places-container--empty {
@@ -865,7 +866,6 @@ img {
 .places__options--custom {
   position: absolute;
   top: calc(100% + 1px);
-  left: 52px;
   z-index: 1;
   display: none
 }
@@ -1487,9 +1487,10 @@ img {
 }
 
 .property__map {
-  width: 100%;
+  width: 60%;
   height: 579px;
   margin-bottom: 50px;
+  margin-left: 20%;
   background-image: url(../img/map-big.jpg);
   background-repeat: no-repeat;
   background-size: 1144px auto;
